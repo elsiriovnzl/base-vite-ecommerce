@@ -1,0 +1,36 @@
+import React from "react";
+import { CgProfile } from "react-icons/cg";
+import { FiShoppingCart } from "react-icons/fi";
+
+type Props = {};
+
+const NavBar = (props: Props) => {
+  return (
+    <div className="flex justify-around w-full m-3">
+      <div className="w-[180px] h-[100px]">
+        <img
+          className="-w-full h-full"
+          src="https://i.pinimg.com/originals/b7/25/fb/b725fb67a8f353788f0c5882699b682a.jpg"
+          alt=""
+        />
+      </div>
+      <div className="flex gap-10 m-4">
+        <ul className="flex gap-10 items-center font-semibold">
+          <li className="cursor-pointer text-yellow-300">Inicio</li>
+          <li className="cursor-pointer">Productos</li>
+          <li className="cursor-pointer">Contacto</li>
+        </ul>
+        <div className="flex gap-4 items-center">
+          <div className="">
+            <CgProfile cursor={"pointer"} size={30} />
+          </div>
+          <div className="">
+            <FiShoppingCart cursor={"pointer"} size={30} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default NavBar;
