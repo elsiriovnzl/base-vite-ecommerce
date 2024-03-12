@@ -6,13 +6,13 @@ import { ProductsProps } from "../pages/Home";
 interface ProductCardProps {
     name: string;
     description: string;
-    category: string;
+    category?: number;
     price: number;
     quantity: number;
-    brand: string;
-    rating: number;
-    color: string;
-    size: string;
+    brand?: string;
+    rating?: number;
+    color?: number;
+    size?: string;
     img: string;
 }
 
@@ -21,11 +21,11 @@ const ProductCards = ({name ,description,category,price,quantity,brand,rating,co
 
   return (
     <div className="h-[450px] w-[290px] shadow-lg flex flex-col ">
-      <div className="flex-1 ">
+      <div className="flex-1 items-center justify-center ">
         <img
           src={img}
           alt=""
-          className="h-full object-contain w-full"
+          className="h-64  object-contain w-full"
         />
       </div>
       <div className="flex flex-col  h-[150px] gap-2 p-2 ">

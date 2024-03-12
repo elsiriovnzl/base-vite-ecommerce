@@ -24,8 +24,12 @@ const NavBar = (props: Props) => {
           <div className="">
             <CgProfile cursor={"pointer"} size={30} />
           </div>
-          <div className="">
+          <div className="relative ">
             <FiShoppingCart cursor={"pointer"} size={30} />
+            <div className="absolute -top-2 -right-3 w-6 h-6 bg-yellow-500 text-center items-center  rounded-full">
+
+            <span className="font-bold">10</span>
+            </div>
           </div>
         </div>
       </div>

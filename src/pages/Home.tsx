@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SubNavBar from "../components/SubNavBar";
 import NavBar from "../components/NavBar";
 import Slider from "../components/Slider";
@@ -6,22 +6,35 @@ import HeroInfo from "../components/HeroInfo";
 import HeroTags from "../components/HeroTags";
 import ProductCards from "../components/ProductCards";
 import Footer from "../components/Footer";
+import { getAllProduct, getProducts } from "../redux/Products/ProductSlice";
+import { useAppDispatch, useAppSelector } from "../hooks";
 
 export interface ProductsProps {
-  product_name: string;
-  product_description: string;
-  product_category: string;
-  product_price: number;
-  product_quantity: number;
-  product_brand: string;
-  product_rating: number;
-  product_color: string;
-  product_size: string;
-  product_image_url: string;
+  products_id: number;
+  products_tiltle: string;
+  products_description: string;
+  product_category?: string;
+  products_total: number;
+  stock: number;
+  product_brand?: string;
+  product_rating?: number;
+  color_id?: number;
+  product_size?: string;
+  products_img1: string;
+  categories_id?: number;
+  product_iva?: number;
 }
 
 const Home = () => {
-  const [products, setProducts] = useState<ProductsProps[]>([
+
+  const dispatch = useAppDispatch();
+  const products = useAppSelector(getProducts);
+
+  useEffect(() => {
+    dispatch(getAllProduct());
+  }, []);
+
+ /*  const [products, setProducts] = useState<ProductsProps[]>([
     {
       product_name: "Dr",
       product_description:
@@ -161,7 +174,7 @@ const Home = () => {
       product_image_url:
       "https://coolstuf.com.pg/wp-content/uploads/2022/10/iPhone-14-PRO-MAX-model-1.jpg"
     },
-  ]);
+  ]); */
 
   return (
     /* CONTAINER */
@@ -188,16 +201,16 @@ const Home = () => {
           <div className="flex  h-full w-full  flex-wrap p-2  gap-3 flex-grow justify-center ">
             {products?.map((product) => (
               <ProductCards
-                name={product.product_name}
-                description={product.product_description}
-                category={product.product_category}
-                price={product.product_price}
-                quantity={product.product_quantity}
+                name={product.products_tiltle}
+                description={product.products_description}
+                category={product.categories_id}
+                price={product.products_total}
+                quantity={product.stock}
                 brand={product.product_brand}
                 rating={product.product_rating}
-                color={product.product_color}
+                color={product.color_id}
                 size={product.product_size}
-                img={product.product_image_url}
+                img={product.products_img1}
               />
             ))}
           </div>
