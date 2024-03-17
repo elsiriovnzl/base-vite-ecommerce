@@ -32,6 +32,7 @@ export const CartSliceReducer = createSlice({
           return p;
         });
       }
+      localStorage.setItem("product", JSON.stringify(state.list));
     },
     addOneProduct: (state, action) => {
       state.list = state.list.map((p) => {
@@ -43,12 +44,18 @@ export const CartSliceReducer = createSlice({
     },
 
     viewProductsInCart: (state) => {
-      state.list;
+      const produtLocalStorage = localStorage.getItem("product");
+      if (produtLocalStorage) {
+        state.list = JSON.parse(produtLocalStorage);
+      } else {
+        state.list;
+      }
     },
     deleteOneProductsInCart: (state, action) => {
       state.list = state.list.filter(
         (prod) => prod.products_id !== action.payload
       );
+      localStorage.setItem("product", JSON.stringify(state.list));
     },
     deleteOneProduct: (state, action) => {
       const findQuantity = state.list.find(
@@ -72,6 +79,7 @@ export const CartSliceReducer = createSlice({
           (pro) => pro.products_id !== action.payload
         );
       }
+      localStorage.setItem("product", JSON.stringify(state.list));
     },
   },
 });
