@@ -1,10 +1,13 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { CgProfile } from "react-icons/cg";
 import { FiShoppingCart } from "react-icons/fi";
 
-type Props = {};
+type Props = {
+  openCartFn: Dispatch<SetStateAction<boolean>>;
+  openCart: boolean;
+};
 
-const NavBar = (props: Props) => {
+const NavBar = ({ openCart, openCartFn }: Props) => {
   return (
     <div className="flex justify-around w-full m-3">
       <div className="w-[180px] h-[100px]">
@@ -24,11 +27,10 @@ const NavBar = (props: Props) => {
           <div className="">
             <CgProfile cursor={"pointer"} size={30} />
           </div>
-          <div className="relative ">
-            <FiShoppingCart cursor={"pointer"} size={30} />
+          <div className="relative cursor-pointer" onClick={() => openCartFn(!openCart)}>
+            <FiShoppingCart  size={30} />
             <div className="absolute -top-2 -right-3 w-6 h-6 bg-yellow-500 text-center items-center  rounded-full">
-
-            <span className="font-bold">10</span>
+              <span className="font-bold select-none">10</span>
             </div>
           </div>
         </div>
