@@ -30,7 +30,6 @@ export interface ProductsProps {
 const Home = () => {
   const dispatch = useAppDispatch();
   const products = useAppSelector(getProducts);
-  const [openCart, setopenCart] = useState(false);
 
   useEffect(() => {
     dispatch(getAllProduct());
@@ -39,11 +38,6 @@ const Home = () => {
   return (
     /* CONTAINER */
     <div className=" w-full flex flex-col gap-5 overflow-x-hidden">
-      {openCart && <SliderCart />}
-      <div className="flex flex-col select-none ">
-        <SubNavBar />
-        <NavBar openCartFn={setopenCart} openCart={openCart} />
-      </div>
       <Slider />
       {/* INFO BUY  */}
       <div className="flex gap-2">

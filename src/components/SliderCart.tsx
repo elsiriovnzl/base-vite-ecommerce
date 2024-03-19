@@ -8,12 +8,14 @@ import {
   getProductsInCart,
 } from "../redux/Products/CartSlice";
 import { useAppDispatch, useAppSelector } from "../hooks";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
 const SliderCart = ({}: Props) => {
   const dispatch = useAppDispatch();
   const Cart = useAppSelector(cart);
+  const router = useNavigate();
 
   const totalProductInCart = Cart.reduce(
     (acc, obj) => acc + obj.products_total * (obj?.quantity ?? 0),
@@ -32,8 +34,13 @@ const SliderCart = ({}: Props) => {
         <div className="flex flex-col w-full items-center justify-center gap-3 ">
           <span className="text-bold text-sm text-black">Sub Total</span>
           <b className="text-bold text-xl text-black">${totalProductInCart}</b>
-        <button className="border-2 p-3 rounded-lg ">Ir al carrito</button>
-        <hr className="h-1 w-full bg-gray-300" />
+          <button
+            className="border-2 p-3 rounded-lg "
+            onClick={() => router("/Pago")}
+          >
+            Ir al carrito
+          </button>
+          <hr className="h-1 w-full bg-gray-300" />
         </div>
         {Cart?.map((p) => (
           <div
