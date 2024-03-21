@@ -1,6 +1,8 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { CgProfile } from "react-icons/cg";
 import { FiShoppingCart } from "react-icons/fi";
+import { useAppSelector } from "../hooks";
+import { cart } from "../redux/Products/CartSlice";
 
 type Props = {
   openCartFn: Dispatch<SetStateAction<boolean>>;
@@ -8,6 +10,9 @@ type Props = {
 };
 
 const NavBar = ({ openCart, openCartFn }: Props) => {
+
+  const Cart = useAppSelector(cart);
+
   return (
     <div className="flex justify-around w-full m-3">
       <div className="w-[180px] h-[100px]">
@@ -30,7 +35,7 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
           <div className="relative cursor-pointer" onClick={() => openCartFn(!openCart)}>
             <FiShoppingCart  size={30} />
             <div className="absolute -top-2 -right-3 w-6 h-6 bg-yellow-500 text-center items-center  rounded-full">
-              <span className="font-bold select-none">10</span>
+              <span className="font-bold select-none">{Cart.length}</span>
             </div>
           </div>
         </div>
