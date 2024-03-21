@@ -4,7 +4,6 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import { StepProps } from "../pages/Payment";
 
 type StepperType = {
@@ -13,6 +12,8 @@ type StepperType = {
 
 export default function HorizontalLinearStepper({ steps }) {
   const [activeStep, setActiveStep] = React.useState(0);
+  const [data, setData] = React.useState([]);
+  const [error, setError] = React.useState(new Set<String>());
   const [skipped, setSkipped] = React.useState(new Set<number>());
   const [stepLabel, setStepLabel] = React.useState([
     "Tipos de pago",
@@ -62,6 +63,10 @@ export default function HorizontalLinearStepper({ steps }) {
     setActiveStep(0);
   };
 
+  React.useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
     <div className="flex h-full w-full flex-col justify-between ">
       <Box sx={{ width: "100%", display: "flex" }}>
@@ -76,7 +81,11 @@ export default function HorizontalLinearStepper({ steps }) {
         </Stepper>
       </Box>
       {steps.map((step, index) => {
-        return index === activeStep && step.component;
+        return (
+          index === activeStep && (
+            <div key={index}>{step.component(error, data)}</div>
+          )
+        );
       })}
       {
         <React.Fragment>
@@ -90,9 +99,11 @@ export default function HorizontalLinearStepper({ steps }) {
               Atras
             </Button>
             <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? "Finalizar" : "Continuar"}
-            </Button>
+            {data.length > 1 && (
+              <Button onClick={handleNext}>
+                {activeStep === steps.length - 1 ? "Finalizar" : "Continuar"}
+              </Button>
+            )}
           </Box>
         </React.Fragment>
       }

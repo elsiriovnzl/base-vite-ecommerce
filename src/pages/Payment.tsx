@@ -16,7 +16,7 @@ import {
 export interface StepProps {
   id: number;
   title: string;
-  component: JSX.Element;
+  component: (error: Set<string>, data: any[]) => JSX.Element;
   status?: boolean;
 }
 
@@ -50,37 +50,57 @@ const Payment = () => {
     {
       id: 1,
       title: "Tipos de pago",
-      component: (
-        <div className="flex h-full w-full  shadow-md flex-col  items-center justify-center">
-          <div className="flex  h-full w-full items-center  justify-evenly ">
-            <span className="flex flex-col items-center justify-center  h-64 w-64 rounded-lg border-yellow-700 border  text-xl">
-              <FaCreditCard size={80} />
-              Credito
-            </span>
-            <span className="flex flex-col items-center justify-center  h-64 w-64 rounded-lg border-yellow-700 border text-xl">
-              <FaCcPaypal size={80} />
-              Pago Unico
-            </span>
-          </div>
-          <div className="flex  flex-col  h-[200px] w-full items-center p-4 gap-3">
-            <div className="flex gap-2 items-center">
-              <input type="checkbox" id="politicas" className="w-7 h-5" />
-              <label htmlFor="politicas" id="politicas">
-                Aceptas comprar en nuestra plataforma despues de haber leido los
-                terminos de pago, en caso de que no pulsa aqui,
-                <a href="#" className="text-blue-900  decoration-clone">
-                  Politicas de Compra
-                </a>
-              </label>
+      component: (error, data) => {
+        function handleCheckboxChange(
+          event: React.ChangeEvent<HTMLInputElement>
+        ) {
+          if (event.target.checked) {
+            data.push({
+              ...data,
+              polity: true,
+            });
+          } else {
+            error.add("Se debe aceptar la politica de ventas");
+          }
+        }
+
+        return (
+          <div className="flex h-full w-full  shadow-md flex-col  items-center justify-center">
+            <div className="flex  h-full w-full items-center  justify-evenly ">
+              <span className="flex flex-col items-center justify-center  h-64 w-64 rounded-lg border-yellow-700 border  text-xl">
+                <FaCreditCard size={80} />
+                Credito
+              </span>
+              <span className="flex flex-col items-center justify-center  h-64 w-64 rounded-lg border-yellow-700 border text-xl">
+                <FaCcPaypal size={80} />
+                Pago Unico
+              </span>
+            </div>
+            <div className="flex  flex-col  h-[200px] w-full items-center p-4 gap-3">
+              <div className="flex gap-2 items-center">
+                <input
+                  type="checkbox"
+                  id="politicas"
+                  className="w-7 h-5"
+                  onChange={handleCheckboxChange}
+                />
+                <label htmlFor="politicas" id="politicas">
+                  Aceptas comprar en nuestra plataforma despues de haber leido
+                  los terminos de pago, en caso de que no pulsa aqui,
+                  <a href="#" className="text-blue-900  decoration-clone">
+                    Politicas de Compra
+                  </a>
+                </label>
+              </div>
             </div>
           </div>
-        </div>
-      ),
+        );
+      },
     },
     {
       id: 2,
       title: "test",
-      component: (
+      component: () => (
         <div className="h-full w-full flex gap-5 items-center">
           <div className=" flex w-full flex-col">
             <div>
@@ -143,7 +163,7 @@ const Payment = () => {
     {
       id: 3,
       title: "test",
-      component: (
+      component: () => (
         <div className="h-full w-full flex gap-5 items-center">
           <div className=" flex w-full flex-col items-center justify-center gap-2">
             <span className="text-3xl">
