@@ -9,6 +9,7 @@ import Footer from "../components/Footer";
 import { getAllProduct, getProducts } from "../redux/Products/ProductSlice";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import SliderCart from "../components/SliderCart";
+import { getProductsInCart } from "../redux/Products/CartSlice";
 
 export interface ProductsProps {
   products_id: number;
@@ -33,6 +34,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getAllProduct());
+    dispatch(getProductsInCart());
   }, []);
 
   return (

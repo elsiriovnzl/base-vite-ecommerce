@@ -35,7 +35,7 @@ const ProductCards = ({
   return (
     <div className="h-[450px] w-[290px] shadow-lg flex flex-col ">
       <div className="flex-1 items-center justify-center ">
-        <img src={img} alt="" className="h-64  object-contain w-full" />
+        <img src={img} alt="" className="h-64  object-contain w-full" loading="lazy" />
       </div>
       <div className="flex flex-col  h-[150px] gap-2 p-2 ">
         <div className="flex ">
