@@ -22,9 +22,6 @@ const SliderCart = ({}: Props) => {
     0
   );
 
-  useEffect(() => {
-    dispatch(getProductsInCart());
-  }, []);
 
   return (
     <div
