@@ -38,11 +38,7 @@ const Payment = () => {
               </div>
             </div>
           ))}
-          <div className=" flex justify-end bg-gray-500  rounded-xl p-2">
-            <span className="text-4xl textt-bold">TOTAL: {total}$</span>
-          </div>
         </div>
-
         <HorizontalLinearStepper />
       </div>
     </div>

@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { ProductsProps } from "../../pages/Home";
 
-export const URL_HOST = "https://elsiriovenezolano-api.sev.tloconsigo.com/";
+export const URL_HOST = "http://localhost:3000";
 
 export interface ProductSliceState {
   list: ProductsProps[];
