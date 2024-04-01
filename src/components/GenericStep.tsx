@@ -67,7 +67,7 @@ export default function HorizontalLinearStepper() {
   };
 
   const handleClickButton = (type: string) => {
-    console.log(type);
+  
     if (!type) {
       setIsError({
         message: "Se debe eligir el tipo de pago",

@@ -7,10 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 const Payment = () => {
   const Cart = useAppSelector(cart);
-  const total = Cart.reduce(
-    (acc, obj) => acc + obj.products_total * (obj?.quantity ?? 0),
-    0
-  );
   const router = useNavigate();
   useEffect(() => {
     !Cart.length && router("/");
@@ -18,10 +14,10 @@ const Payment = () => {
 
   return (
     <div
-      className=" w-full h-full overflow-y-auto  flex items-center justify-center
+      className=" w-full h-full overflow-y-auto pt-[150px] flex items-center justify-center
     p-4"
     >
-      <div className="flex w-[70%] h-full items-center  ">
+      <div className="flex w-[70%] h-full items-center">
         <div className="flex h-full w-full flex-col p-2 gap-2  overflow-y-auto">
           {Cart?.map((cart) => (
             <div

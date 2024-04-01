@@ -23,32 +23,6 @@ const StepTwo = ({ handleChange, Cart }: Props) => {
   const [methodPay, setMethodPay] = useState<string | null>(null);
   const [quotesSelect, setQuotes] = useState<string | null>(null);
 
-  const banks: BanksType[] = [
-    { id: useId(), nombre: "Banco de Venezuela, S.A.C.A.", code: "0102" },
-    { id: useId(), nombre: "Venezolano de Crédito", code: "0104" },
-    { id: useId(), nombre: "Mercantil", code: "0105" },
-    { id: useId(), nombre: "Provincial", code: "0108" },
-    { id: useId(), nombre: "Bancaribe", code: "0114" },
-    { id: useId(), nombre: "Exterior", code: "0115" },
-    { id: useId(), nombre: "Occidental de Descuento", code: "0116" },
-    { id: useId(), nombre: "Banco Caroní", code: "0128" },
-    { id: useId(), nombre: "Banesco", code: "0134" },
-    { id: useId(), nombre: "Banco Plaza", code: "0138" },
-    { id: useId(), nombre: "BFC Banco Fondo Común", code: "0151" },
-    { id: useId(), nombre: "100% Banco", code: "0156" },
-    { id: useId(), nombre: "Del Sur", code: "0157" },
-    { id: useId(), nombre: "Banco del Tesoro", code: "0163" },
-    { id: useId(), nombre: "Banco Agrícola de Venezuela", code: "0166" },
-    { id: useId(), nombre: "Bancrecer", code: "0168" },
-    { id: useId(), nombre: "Mi Banco", code: "0169" },
-    { id: useId(), nombre: "Banco Activo", code: "0171" },
-    { id: useId(), nombre: "Bancamiga", code: "0172" },
-    { id: useId(), nombre: "Banplus", code: "0174" },
-    { id: useId(), nombre: "Bicentenario del Pueblo", code: "0175" },
-    { id: useId(), nombre: "Banfanb", code: "0177" },
-    { id: useId(), nombre: "BNC Nacional de Crédito", code: "0191" },
-  ];
-
   const quotes: Quotes[] = [
     { id: useId(), value: 3 },
     { id: useId(), value: 6 },
@@ -58,7 +32,7 @@ const StepTwo = ({ handleChange, Cart }: Props) => {
   ];
 
   const total = Cart?.reduce(
-    (acc, obj) => acc + obj.products_total * (obj?.quantity ?? 0),
+    (acc, obj) => acc + obj.products_total * (obj?.quantity ?? 0 ) * 100,
     0
   );
 
@@ -150,36 +124,31 @@ const StepTwo = ({ handleChange, Cart }: Props) => {
             </div>
           </div>
 
-          <div className="flex w-full">
-            <select className="w-full p-3 m-2 bg-gray-300 text-black rounded-sm">
-              {banks.map((bank) => (
-                <option key={bank.id} value={bank.code}>
-                  {bank.nombre}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="w-full flex flex-col gap-4">
-          <TextField
-              label="Cedula de pago ej: v26333304-2"
-              name="state"
-              onChange={() => handleChange}
-              className="w-full"
-            />
-          <TextField
-              label="Codigo de pago ej: 123094732"
-              name="state"
-              onChange={() => handleChange}
-              className="w-full"
-            />
+          <div className="w-full h-44 flex  gap-4 items-center bg-slate-300 rounded-md ">
+            <div className="gap-2 flex flex-col w-full items-center">
+              <span className="font-bold text-2xl ">Datos</span>
+              <span>MOVIL EMPRISE SPA </span>
+            </div>
+            <div className="gap-2 flex flex-col w-full items-center">
+              <span className="font-bold text-2xl ">Rif</span>
+              <span className="text-xl">v-262964892</span>
+            </div>
+            <div className="">
+              <span className="font-bold text-2xl w-full items-center">
+                Banco Santander
+              </span>
+            </div>
+            <div className="gap-2 flex flex-col w-full items-center">
+              <span className="font-bold text-2xl">N° Cel</span>
+              <span className="text-xl">414-825561855</span>
+            </div>
           </div>
         </FormControl>
       )}
 
       <div className="h-auto w-64  flex flex-col items-center shadow-md rounded-xl justify-center bg-gray-200">
         <p className=" font-bold text-2xl"> {total} USD </p>
-        <p className=" font-bold text-2xl">Bsf {total}  </p>
+        <p className=" font-bold text-3xl">Bsf {total} </p>
       </div>
     </div>
   );

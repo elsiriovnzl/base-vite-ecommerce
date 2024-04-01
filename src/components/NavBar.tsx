@@ -1,9 +1,19 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useId,
+  useState,
+} from "react";
 import { CgProfile } from "react-icons/cg";
 import { FiShoppingCart } from "react-icons/fi";
-import { useAppSelector } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import { cart } from "../redux/Products/CartSlice";
 import { Link } from "react-router-dom";
+import {
+  currentPageActive,
+  postCurrentPage,
+} from "../redux/Products/currentPage/CurrentPage";
 
 type Props = {
   openCartFn: Dispatch<SetStateAction<boolean>>;
@@ -11,10 +21,23 @@ type Props = {
 };
 
 const NavBar = ({ openCart, openCartFn }: Props) => {
+  const page = useAppSelector(currentPageActive);
+  const dispatch = useAppDispatch();
+  const [currentPage, setCurrentPage] = useState<string | null>("/");
+  const [hrefLabel, setHrefLabel] = useState<
+    { id: string; name: string; href: string }[]
+  >([
+    { id: useId(), name: "Inicio", href: "/" },
+    { id: useId(), name: "Productos", href: "/Productos" },
+  ]);
   const Cart = useAppSelector(cart);
 
+  useEffect(() => {
+    page && dispatch(postCurrentPage(page));
+  }, [page]);
+
   return (
-    <div className="flex justify-around w-full m-3">
+    <div className="flex justify-around w-full h-[100px] m-3  ">
       <Link to={"/"}>
         <div className="w-[180px] h-[100px]">
           <img
@@ -26,9 +49,22 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
       </Link>
       <div className="flex gap-10 m-4">
         <ul className="flex gap-10 items-center font-semibold">
-          <li className="cursor-pointer text-yellow-300">Inicio</li>
-          <li className="cursor-pointer">Productos</li>
-          <li className="cursor-pointer">Contacto</li>
+          {hrefLabel.map((label, idx) => (
+            <Link to={label.href}>
+              <li
+                key={idx}
+                className={`cursor-pointer  ${
+                  label.name === currentPage
+                    ? " border-b-4 border-yellow-300"
+                    : ""
+                }`}
+                id={label.id}
+                onClick={() => setCurrentPage(label.name)}
+              >
+                {label.name}
+              </li>
+            </Link>
+          ))}
         </ul>
         <div className="flex gap-4 items-center">
           <div className="">

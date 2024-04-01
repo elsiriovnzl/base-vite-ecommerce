@@ -1,11 +1,13 @@
 import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit'
 import  ProductSliceReducer  from './redux/Products/ProductSlice';
 import  CartSliceReducer  from './redux/Products/CartSlice';
+import  SiderBarMenuReducer  from './redux/Products/currentPage/CurrentPage';
 
 export const store = configureStore({
   reducer: {
     products : ProductSliceReducer,
-    cart: CartSliceReducer
+    cart: CartSliceReducer,
+    page: SiderBarMenuReducer
   },
 })
 

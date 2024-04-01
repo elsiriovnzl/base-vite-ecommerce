@@ -39,7 +39,7 @@ const Home = () => {
 
   return (
     /* CONTAINER */
-    <div className=" w-full flex flex-col gap-5 overflow-x-hidden">
+    <div className=" w-full pt-[150px] flex flex-col gap-5 overflow-x-hidden">
       <Slider />
       {/* INFO BUY  */}
       <div className="flex gap-2">
