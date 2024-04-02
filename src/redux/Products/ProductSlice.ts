@@ -36,7 +36,7 @@ export const getProducts = (state: RootState) => state.products.list;
 /* ACTIONS FUNCTIONS */
 export const getAllProduct = (): AppThunk => async (dispatch, getState) => {
   try {
-    const response = await axios.get(`http://localhost:3000/.netlify/functions/api/v1/products`);
+    const response = await axios.get(`http://localhost:3000/.netlify/functions/api/products`);
 
     dispatch(getAll(response.data));
   } catch (error) {

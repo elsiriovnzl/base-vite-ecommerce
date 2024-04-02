@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FocusEvent, useEffect, useState } from "react";
-import { getProducts } from "../redux/Products/ProductSlice";
-import { useAppSelector } from "../hooks";
+import { getAllProduct, getProducts } from "../redux/Products/ProductSlice";
+import { useAppDispatch, useAppSelector } from "../hooks";
 import ProductCards from "../components/ProductCards";
 
 const Products = () => {
@@ -8,11 +8,15 @@ const Products = () => {
   const [search, setSearch] = useState("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.value) setSearch('');
+    if (!e.target.value) setSearch("");
     setSearch(e.target.value);
   };
 
+  const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    dispatch(getAllProduct());
+  }, []);
   return (
     <div className="w-[100vw] h-full pt-[150px] flex justify-center ">
       <div className="w-[80%] flex justify-between gap-5">
@@ -24,7 +28,6 @@ const Products = () => {
                 className="border border-spacing-2 w-full"
                 placeholder="Buscar"
                 onChange={handleChange}
-             
               />
             </div>
             <div className="flex flex-col h-[60px] w-full">

@@ -9,11 +9,11 @@ import { CgProfile } from "react-icons/cg";
 import { FiShoppingCart } from "react-icons/fi";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { cart } from "../redux/Products/CartSlice";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigation } from "react-router-dom";
 import {
   currentPageActive,
   postCurrentPage,
-} from "../redux/Products/currentPage/CurrentPage";
+} from "../redux/Products/currentPage/CurrentPageSlice";
 
 type Props = {
   openCartFn: Dispatch<SetStateAction<boolean>>;
@@ -21,9 +21,9 @@ type Props = {
 };
 
 const NavBar = ({ openCart, openCartFn }: Props) => {
+  const history = useLocation();
   const page = useAppSelector(currentPageActive);
   const dispatch = useAppDispatch();
-  const [currentPage, setCurrentPage] = useState<string | null>("/");
   const [hrefLabel, setHrefLabel] = useState<
     { id: string; name: string; href: string }[]
   >([
@@ -33,9 +33,9 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
   const Cart = useAppSelector(cart);
 
   useEffect(() => {
-    page && dispatch(postCurrentPage(page));
-  }, [page]);
-
+    history.pathname && dispatch(postCurrentPage(history.pathname));
+  }, [history?.pathname]);
+  
   return (
     <div className="flex justify-around w-full h-[100px] m-3  ">
       <Link to={"/"}>
@@ -54,12 +54,9 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
               <li
                 key={idx}
                 className={`cursor-pointer  ${
-                  label.name === currentPage
-                    ? " border-b-4 border-yellow-300"
-                    : ""
+                  label.href === page ? " border-b-4 border-yellow-300" : ""
                 }`}
                 id={label.id}
-                onClick={() => setCurrentPage(label.name)}
               >
                 {label.name}
               </li>

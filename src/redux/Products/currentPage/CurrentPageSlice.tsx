@@ -1,13 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../../store";
-import { actionStorage, localStorage } from "../../../lib/utils";
 
 export interface SiderBarMenuState {
   currentPage: string | null;
 }
 /* INITIAL STATE */
 const initialState: SiderBarMenuState = {
-  currentPage: "" || null,
+  currentPage: "" || localStorage.getItem("currentPage"),
 };
 /* INITIAL STATE */
 
@@ -16,18 +15,16 @@ export const SiderBarMenuReducer = createSlice({
   name: "sideMenu",
   initialState,
   reducers: {
-    activeSideBar: (state, action) => {
-      const res = localStorage(
-        "page",
-        action.payload
-      );
-      state.currentPage = res;
+    addPostCurrentPage: (state, action) => {
+      localStorage.setItem("currentPage", action.payload);
+
+      state.currentPage = localStorage.getItem("currentPage");
     },
   },
 });
 /* PARAMETERS STATE SLICE */
 
-export const { activeSideBar } = SiderBarMenuReducer.actions;
+export const { addPostCurrentPage } = SiderBarMenuReducer.actions;
 
 /* SELECTOR */
 export const currentPageActive = (state: RootState) => state.page.currentPage;
@@ -37,7 +34,7 @@ export const currentPageActive = (state: RootState) => state.page.currentPage;
 export const postCurrentPage =
   (currentPage: string): AppThunk =>
   (dispatch, getState) => {
-    dispatch(activeSideBar(currentPage));
+    dispatch(addPostCurrentPage(currentPage));
   };
 /* ACTIONS FUNCTIONS */
 
