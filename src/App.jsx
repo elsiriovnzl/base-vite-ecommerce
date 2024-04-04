@@ -17,7 +17,7 @@ function App() {
 
   return user ? (
     <div className="w-[100vw] h-[100vh] flex flex-col overflow-y-auto overflow-hidden justify-center">
-      <div className="flex flex-col w-full h-[140px] bg-white z-10 fixed top-0">
+      <div className="flex flex-col w-full  bg-white z-10 fixed top-0">
         <SubNavBar />
         <NavBar openCartFn={setopenCart} openCart={openCart} />
       </div>

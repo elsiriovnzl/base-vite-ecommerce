@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import SubNavBar from "../components/SubNavBar";
-import NavBar from "../components/NavBar";
+import React, { useEffect } from "react";
+
 import Slider from "../components/Slider";
 import HeroInfo from "../components/HeroInfo";
 import HeroTags from "../components/HeroTags";
@@ -8,7 +7,6 @@ import ProductCards from "../components/ProductCards";
 import Footer from "../components/Footer";
 import { getAllProduct, getProducts } from "../redux/Products/ProductSlice";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import SliderCart from "../components/SliderCart";
 import { getProductsInCart } from "../redux/Products/CartSlice";
 
 export interface ProductsProps {
@@ -39,10 +37,10 @@ const Home = () => {
 
   return (
     /* CONTAINER */
-    <div className=" w-full pt-[150px] flex flex-col gap-5 overflow-x-hidden">
+    <div className=" w-full pt-[80px] flex flex-col gap-5 overflow-x-hidden ">
       <Slider />
       {/* INFO BUY  */}
-      <div className="flex gap-2">
+      <div className="flex gap-2 ">
         <HeroInfo />
       </div>
       {/* PRODUCTS OFFERT SELLERS */}
@@ -51,9 +49,9 @@ const Home = () => {
       </div>
       <div className=" flex flex-col items-center  ">
         <div className=" flex flex-col w-[80%] h-auto  ">
-          <div className="flex h-24 w-full  items-center justify-between pl-10 pr-10 ">
-            <h3 className="text-2xl font-semibold">Top Productos</h3>
-            <div className="text-2xl font-semibold">categorias</div>
+          <div className="flex h-24 w-full  items-center justify-between">
+            <h3 className="text-1xl font-semibold border-b-2 border-yellow-300">Top Productos</h3>
+            <div className="text-1xl font-semibold border-b-2 border-yellow-300">Categorias</div>
           </div>
           <div className="flex  h-full w-full  flex-wrap p-2  gap-3 flex-grow justify-center ">
             {products?.map((product) => (

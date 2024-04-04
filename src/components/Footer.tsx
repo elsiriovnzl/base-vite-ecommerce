@@ -7,11 +7,11 @@ const Footer = (props: Props) => {
 <footer
   className="bg-black text-center text-white dark:bg-neutral-700 dark:text-white/75 lg:text-left">
   <div
-    className="flex items-center justify-center border-b-2 border-neutral-200 p-6 dark:border-white/10 lg:justify-between">
+    className="flex items-center justify-center border-b-2  border-neutral-200 p-6 dark:border-white/10 lg:justify-between">
     <div className="me-12 hidden lg:block">
       <span>Get connected with us on social networks:</span>
     </div>
-    <div className="flex justify-center">
+    <div className="flex justify-center gap-5 sm:flex-col">
       <a href="#!" className="me-6 [&>svg]:h-4 [&>svg]:w-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +70,7 @@ const Footer = (props: Props) => {
   </div>
 
   <div className="mx-6 py-10 text-center md:text-left">
-    <div className="grid-1 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid-1 grid gap-8 grid-cols-4 sm:grid-cols-1 md:grid-cols-2">
       <div className="">
         <h6
           className="mb-4 flex items-center justify-center font-semibold uppercase md:justify-start">

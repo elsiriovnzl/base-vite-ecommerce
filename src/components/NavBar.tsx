@@ -7,9 +7,10 @@ import React, {
 } from "react";
 import { CgProfile } from "react-icons/cg";
 import { FiShoppingCart } from "react-icons/fi";
+import { RxHamburgerMenu } from "react-icons/rx";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { cart } from "../redux/Products/CartSlice";
-import { Link, useLocation, useNavigation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   currentPageActive,
   postCurrentPage,
@@ -35,20 +36,20 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
   useEffect(() => {
     history.pathname && dispatch(postCurrentPage(history.pathname));
   }, [history?.pathname]);
-  
+
   return (
-    <div className="flex justify-around w-full h-[100px] m-3  ">
-      <Link to={"/"}>
-        <div className="w-[180px] h-[100px]">
+    <div className="flex items-center  justify-around sm:pl-4 w-full h-[100px]  border-b-2 ">
+      <div className="w-[180px] h-[90px]  ">
+        <Link to={"/"}>
           <img
             className="-w-full h-full"
             src="https://i.pinimg.com/originals/b7/25/fb/b725fb67a8f353788f0c5882699b682a.jpg"
             alt=""
           />
-        </div>
-      </Link>
-      <div className="flex gap-10 m-4">
-        <ul className="flex gap-10 items-center font-semibold">
+        </Link>
+      </div>
+      <div className=" flex gap-10 m-4  ">
+        <ul className="flex gap-10 items-center font-semibold md:hidden">
           {hrefLabel.map((label, idx) => (
             <Link to={label.href}>
               <li
@@ -63,7 +64,7 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
             </Link>
           ))}
         </ul>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-6 items-center">
           <div className="">
             <CgProfile cursor={"pointer"} size={30} />
           </div>
@@ -75,6 +76,9 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
             <div className="absolute -top-2 -right-3 w-6 h-6 bg-yellow-500 text-center items-center  rounded-full">
               <span className="font-bold select-none">{Cart.length}</span>
             </div>
+          </div>
+          <div className=" hidden md:flex">
+            <RxHamburgerMenu size={30} cursor={"pointer"} />
           </div>
         </div>
       </div>

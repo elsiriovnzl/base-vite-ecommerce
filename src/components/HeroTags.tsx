@@ -65,8 +65,8 @@ const HeroTags = (props: Props) => {
   ]);
 
   return (
-    <div className=" flex w-full items-center justify-center h-[500px] p-3 m-3">
-      <div className="grid grid-cols-9 grid-rows-8 gap-4 w-[80%] h-full">
+    <div className=" flex w-full items-center justify-center h-auto p-3 m-3">
+      <div className="grid grid-cols-9 grid-flow-row grid-rows-8 gap-4 w-[80%] h-full  flex-wrap md:h-auto lg:hidden">
         {slugData
           .map((slug) => (
             <SlugViewCard
