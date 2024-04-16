@@ -11,6 +11,7 @@ import SubNavBar from "./components/SubNavBar";
 import NavBar from "./components/NavBar";
 import SliderCart from "./components/SliderCart";
 
+
 function App() {
   const [openCart, setopenCart] = useState(false);
   let user = true;
@@ -22,14 +23,13 @@ function App() {
         <NavBar openCartFn={setopenCart} openCart={openCart} />
       </div>
       {openCart && <SliderCart />}
-     
-        <Routes>
-          <Route path="/" index element={<Home />} />
-          <Route path="/Productos" index element={<Products />} />
-          <Route path="/Perfil" index element={<Profile />} />
-          <Route path="/Pago" index element={<Payment />} />
-        </Routes>
-   
+
+      <Routes>
+        <Route path="/" index element={<Home />} />
+        <Route path="/Productos" index element={<Products />} />
+        <Route path="/Perfil" index element={<Profile />} />
+        <Route path="/Pago" index element={<Payment />} />
+      </Routes>
     </div>
   ) : (
     <Routes>

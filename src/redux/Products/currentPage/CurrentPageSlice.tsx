@@ -6,7 +6,7 @@ export interface SiderBarMenuState {
 }
 /* INITIAL STATE */
 const initialState: SiderBarMenuState = {
-  currentPage: "" || localStorage.getItem("currentPage"),
+  currentPage: "/" || localStorage.getItem("currentPage"),
 };
 /* INITIAL STATE */
 

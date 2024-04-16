@@ -11,7 +11,6 @@ export type Quotes = {
   value: number;
 };
 
-
 export interface StepProps {
   id: number;
   title: string;
@@ -19,13 +18,22 @@ export interface StepProps {
   status?: boolean;
 }
 
-export type FormData = {
+export type OrderType = {
   name: string;
-  ci: string;
   address: string;
-  phone: string;
-  state: string;
   quotes: number;
   polity: boolean;
   credit: boolean;
+  cedulaPagador: string;
+  telefonoPagador: string;
+  telefonoDestino: string;
+  referencia: string;
+  fechaPago: string;
+  importe: string;
+  bancoOrigen: string;
+  statusOrder: "pendiente" | "rechazado" | "aprobado" | "en progreso";
+  totalUSD: number;
+  totalVEF: number;
+  convertVEF: number;
+  cart: ProductsProps[];
 };
