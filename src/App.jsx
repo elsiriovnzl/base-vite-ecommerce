@@ -10,14 +10,14 @@ import Payment from "./pages/Payment";
 import SubNavBar from "./components/SubNavBar";
 import NavBar from "./components/NavBar";
 import SliderCart from "./components/SliderCart";
-
+import SingleProduct from "./pages/SingleProduct";
 
 function App() {
   const [openCart, setopenCart] = useState(false);
   let user = true;
 
   return user ? (
-    <div className="w-[100vw] h-[100vh] flex flex-col overflow-y-auto overflow-hidden justify-center">
+    <div className="w-[100vw] h-auto flex flex-col overflow-y-auto overflow-hidden justify-center">
       <div className="flex flex-col w-full  bg-white z-10 fixed top-0">
         <SubNavBar />
         <NavBar openCartFn={setopenCart} openCart={openCart} />
@@ -27,6 +27,7 @@ function App() {
       <Routes>
         <Route path="/" index element={<Home />} />
         <Route path="/Productos" index element={<Products />} />
+        <Route path="/Productos/:id" index element={<SingleProduct />} />
         <Route path="/Perfil" index element={<Profile />} />
         <Route path="/Pago" index element={<Payment />} />
       </Routes>

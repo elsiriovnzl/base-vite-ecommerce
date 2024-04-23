@@ -2,6 +2,8 @@ import React from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { useAppDispatch } from "../hooks";
 import { postProductInCart } from "../redux/Products/CartSlice";
+import { FaEye } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 interface ProductCardProps {
   id: number;
@@ -35,7 +37,12 @@ const ProductCards = ({
   return (
     <div className="h-[450px] w-[290px] shadow-lg flex flex-col ">
       <div className="flex-1 items-center justify-center ">
-        <img src={img} alt="" className="h-64  object-contain w-full" loading="lazy" />
+        <img
+          src={img}
+          alt=""
+          className="h-64  object-contain w-full"
+          loading="lazy"
+        />
       </div>
       <div className="flex flex-col  h-[150px] gap-2 p-2 ">
         <div className="flex ">
@@ -55,7 +62,7 @@ const ProductCards = ({
           <div className="price">
             <b>${price}</b>
           </div>
-          <div className="button">
+          <div className="flex gap-2">
             <button
               onClick={() =>
                 dispatch(
@@ -74,6 +81,12 @@ const ProductCards = ({
             >
               Agregar al carro
             </button>
+            <Link to={`/Productos/${id}`}>
+              <button className="bg-yellow-300 flex gap-2 p-2 text-sm rounded-md text-gray-600 hover:text-gray-800 hover:bg-yellow-500">
+                Ver
+                <FaEye size={20} />
+              </button>
+            </Link>
           </div>
         </div>
       </div>
