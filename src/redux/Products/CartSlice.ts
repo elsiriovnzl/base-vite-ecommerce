@@ -3,7 +3,7 @@ import { RootState, AppThunk } from "../../store";
 
 import { ProductsProps } from "../../pages/Home";
 
-export const URL_HOST = "https://elsiriovenezolano-api.sev.tloconsigo.com/";
+export const URL_HOST = "https://panel-admin-base-production.up.railway.app/";
 
 export interface CartSliceState {
   list: ProductsProps[];

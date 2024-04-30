@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { ProductsProps } from "../../pages/Home";
 
-export const URL_HOST = "http://localhost:3000";
+export const URL_HOST = "https://panel-admin-base-production.up.railway.app/";
 
 export interface ProductSliceState {
   list: ProductsProps[];
