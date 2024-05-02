@@ -7,10 +7,12 @@ import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
   getOneProduct,
+  loadingSingleProduct,
   singleProduct,
 } from "../../redux/Products/SingleProduct";
 import { addOneSingle } from "../../redux/Products/CartSlice";
 import PopUpImage from "./components/PopUpImage";
+import { LinearProgress } from "@mui/material";
 /* import CardGeneric from "../components/CardGeneric";
 import Comments from "../components/Comments"; */
 
@@ -46,7 +48,7 @@ const SingleProduct = ({}: SingleProductType) => {
     }
   };
 
-  return Object.keys(product).length > 0 ? (
+  return !loading ? (
     <div className="flex w-[100vw] h-full  items-center justify-center flex-col pt-[180px] gap-16 realtive ">
       <div
         className=" w-[70%] h-[550px] flex items-center justify-center lg:flex-col lg:h-[1100px] 
