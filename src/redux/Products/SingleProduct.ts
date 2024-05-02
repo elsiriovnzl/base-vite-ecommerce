@@ -25,6 +25,7 @@ const initialState = {
     product_iva: 0,
     quantity: 0,
   },
+  loading: false,
 };
 /* INITIAL STATE */
 
@@ -35,15 +36,22 @@ export const SingleProductSliceReducer = createSlice({
   reducers: {
     getSingleProduct: (state, action) => {
       state.Product = action.payload;
+      state.loading = false;
+    },
+    setLoading: (state) => {
+      state.loading = true;
     },
   },
 });
 /* PARAMETERS STATE SLICE */
 
-export const { getSingleProduct } = SingleProductSliceReducer.actions;
+export const { getSingleProduct, setLoading } =
+  SingleProductSliceReducer.actions;
 
 /* SELECTOR */
 export const singleProduct = (state: RootState) => state.singleProduct.Product;
+export const loadingSingleProduct = (state: RootState) =>
+  state.singleProduct.loading;
 /* SELECTOR */
 
 /* ACTIONS FUNCTIONS */
@@ -51,6 +59,7 @@ export const getOneProduct =
   (id: string): AppThunk =>
   async (dispatch, getState) => {
     try {
+      dispatch(setLoading());
       const response = await axios.post(`${URL_HOST_PROD}/api/v1/products`, {
         singleProductId: id,
       });

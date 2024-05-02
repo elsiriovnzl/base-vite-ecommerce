@@ -19,6 +19,7 @@ type SingleProductType = {};
 const SingleProduct = ({}: SingleProductType) => {
   const { id } = useParams();
   const product = useAppSelector(singleProduct);
+  const loading = useAppSelector(loadingSingleProduct);
   const [count, setCount] = useState(1);
   const [viewImage, setViewImage] = useState<string | null>(null);
   const [isOpenImage, setIsOpenImage] = useState(true);
@@ -171,7 +172,9 @@ const SingleProduct = ({}: SingleProductType) => {
       <Footer />
     </div>
   ) : (
-    <p>Cargando...</p>
+    <div className="flex w-[100vw] h-[100vh]  items-center justify-center flex-col pt-[180px]">
+      <LinearProgress className="w-[80%] h-full"/>
+    </div>
   );
 };
 
