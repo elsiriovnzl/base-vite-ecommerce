@@ -51,7 +51,7 @@ export const getOneProduct =
   (id: string): AppThunk =>
   async (dispatch, getState) => {
     try {
-      const response = await axios.post(`${URL_HOST_DEV}/api/v1/products`, {
+      const response = await axios.post(`${URL_HOST_PROD}/api/v1/products`, {
         singleProductId: id,
       });
 
