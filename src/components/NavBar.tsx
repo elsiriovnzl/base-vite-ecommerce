@@ -51,9 +51,9 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
       <div className=" flex gap-10 m-4  ">
         <ul className="flex gap-10 items-center font-semibold md:hidden">
           {hrefLabel.map((label, idx) => (
-            <Link to={label.href}>
+            <Link to={label.href} key={idx}>
               <li
-                key={idx}
+                
                 className={`cursor-pointer  ${
                   label.href === page ? " border-b-4 border-yellow-300" : ""
                 }`}

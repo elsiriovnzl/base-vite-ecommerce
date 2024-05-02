@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { ProductsProps } from "../../pages/Home";
 
-export const URL_HOST = "https://panel-admin-base-production.up.railway.app/";
+export const URL_HOST = "https://panel-admin-base-production.up.railway.app";
 
 export interface ProductSliceState {
   list: ProductsProps[];
@@ -36,13 +36,16 @@ export const getProducts = (state: RootState) => state.products.list;
 /* ACTIONS FUNCTIONS */
 export const getAllProduct = (): AppThunk => async (dispatch, getState) => {
   try {
-    const response = await axios.get(`http://localhost:3000/.netlify/functions/api/v1/products`);
+    const response = await axios.get(`${URL_HOST}/api/v1/products`);
 
     dispatch(getAll(response.data));
   } catch (error) {
     console.log(error);
   }
 };
+
+
+
 /* ACTIONS FUNCTIONS */
 
 export default ProductSliceReducer.reducer;
