@@ -10,7 +10,7 @@ import Payment from "./pages/Payment";
 import SubNavBar from "./components/SubNavBar";
 import NavBar from "./components/NavBar";
 import SliderCart from "./components/SliderCart";
-import SingleProduct from "./pages/SingleProduct";
+import SingleProduct from "./pages/SingleProducts/SingleProduct";
 
 function App() {
   const [openCart, setopenCart] = useState(false);
@@ -22,7 +22,9 @@ function App() {
         <SubNavBar />
         <NavBar openCartFn={setopenCart} openCart={openCart} />
       </div>
+
       {openCart && <SliderCart />}
+    
 
       <Routes>
         <Route path="/" index element={<Home />} />

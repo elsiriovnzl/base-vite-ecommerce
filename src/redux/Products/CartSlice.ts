@@ -3,7 +3,6 @@ import { RootState, AppThunk } from "../../store";
 
 import { ProductsProps } from "../../pages/Home";
 
-export const URL_HOST = "https://panel-admin-base-production.up.railway.app";
 
 export interface CartSliceState {
   list: ProductsProps[];
@@ -20,14 +19,23 @@ export const CartSliceReducer = createSlice({
   initialState,
   reducers: {
     addSingleProduct: (state, action) => {
-      if (
-        !state.list.some((p) => p.products_id === action.payload.idProduct)
-      ) {
-        state.list = [...state.list, { ...action.payload, quantity: action.payload.quantity }];
+      if (!state.list.some((p) => p.products_id === action.payload.product.products_id) ) {
+        state.list = [
+          ...state.list,
+          { ...action.payload.product, quantity: action.payload.quantity },
+        ];
+      } else {
+        state.list = state.list.map((p) => {
+          if (p.products_id === action.payload.product.products_id) {
+            return { ...p, quantity: (p.quantity ?? 0) + action.payload.quantity };
+          }
+          return p;
+        });
       }
       localStorage.setItem("product", JSON.stringify(state.list));
     },
     addProductInCart: (state, action) => {
+
       if (
         !state.list.some((p) => p.products_id === action.payload.products_id)
       ) {
@@ -133,11 +141,11 @@ export const deleteOne =
       console.log(error);
     }
   };
-  export const addOneSingle =
-  (idProduct: string, quantity: number): AppThunk =>
+export const addOneSingle =
+  (product: ProductsProps, quantity: number): AppThunk =>
   async (dispatch, getState) => {
     try {
-      dispatch(addSingleProduct({idProduct, quantity} ));
+       dispatch(addSingleProduct({product, quantity} ));
     } catch (error) {
       console.log(error);
     }

@@ -2,11 +2,15 @@ import React, { MouseEvent, useEffect, useState } from "react";
 
 import { FaStar, FaMapMarkerAlt } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
-import Footer from "../components/Footer";
+import Footer from "../../components/Footer";
 import { useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../hooks";
-import { getOneProduct, singleProduct } from "../redux/Products/SingleProduct";
-import { addOneSingle } from "../redux/Products/CartSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import {
+  getOneProduct,
+  singleProduct,
+} from "../../redux/Products/SingleProduct";
+import { addOneSingle } from "../../redux/Products/CartSlice";
+import PopUpImage from "./components/PopUpImage";
 /* import CardGeneric from "../components/CardGeneric";
 import Comments from "../components/Comments"; */
 
@@ -16,25 +20,33 @@ const SingleProduct = ({}: SingleProductType) => {
   const { id } = useParams();
   const product = useAppSelector(singleProduct);
   const [count, setCount] = useState(1);
+  const [viewImage, setViewImage] = useState<string | null>(null);
+  const [isOpenImage, setIsOpenImage] = useState(true);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     id && dispatch(getOneProduct(id));
   }, [id]);
 
-  const handleClick = (operation: string) => {
-    if (count === 1) {
-      setCount((prev) => prev + 1);
-    } else {
-      operation === "+"
-        ? setCount((prev) => prev + 1)
-        : setCount((prev) => prev - 1);
+  const handleClick = (operation: string, image?: string) => {
+    if (operation === "addCart" && id) {
+      dispatch(addOneSingle(product, count));
+      return;
     }
-    if (operation === "addCart") id && dispatch(addOneSingle(id, count));
+    count === 1 && setCount((prev) => prev + 1);
+
+    operation === "+"
+      ? setCount((prev) => prev + 1)
+      : setCount((prev) => prev - 1);
+
+    if (operation === "image" && image) {
+      setViewImage(image);
+      setIsOpenImage(true)
+    }
   };
 
   return Object.keys(product).length > 0 ? (
-    <div className="flex w-[100vw] h-full  items-center justify-center flex-col pt-[180px] gap-16 ">
+    <div className="flex w-[100vw] h-full  items-center justify-center flex-col pt-[180px] gap-16 realtive ">
       <div
         className=" w-[70%] h-[550px] flex items-center justify-center lg:flex-col lg:h-[1100px] 
       md:flex-col md:h-auto  sm:flex-col sm:h-[1000px] gap-2  "
@@ -52,20 +64,24 @@ const SingleProduct = ({}: SingleProductType) => {
                 src={product?.products_img2}
                 alt=""
                 className="w-full h-full object-contain shadow-xl p-5 rounded-lg cursor-pointer hover:border border-black"
+                onClick={() => handleClick("image", product?.products_img2)}
               />
               <img
                 src={product?.products_img3}
                 alt=""
                 className="w-full h-full object-contain shadow-xl p-5 rounded-lg cursor-pointer hover:border border-black"
+                onClick={() => handleClick("image", product?.products_img3)}
               />
               <img
                 src={product?.products_img4}
                 alt=""
                 className="w-full h-full object-contain shadow-xl p-5 rounded-lg cursor-pointer hover:border border-black"
+                onClick={() => handleClick("image", product?.products_img4)}
               />
             </div>
           </div>
         </div>
+        {isOpenImage && viewImage && <PopUpImage image={viewImage} setIsClose={setIsOpenImage} isOpenImage={isOpenImage} />}
         <div className="flex-1 flex h-full w-full p-2 flex-col gap-6 ">
           <div className="flex flex-col gap-2 sm:flex-col">
             <p className="text-2xl font-bold">{product?.products_tiltle} </p>
