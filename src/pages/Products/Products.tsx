@@ -18,7 +18,7 @@ const Products = () => {
     dispatch(getAllProduct());
   }, []);
   return (
-    <div className="w-full h-full flex justify-center items-center ">
+    <div className="w-full h-[1000px] flex justify-center items-center ">
       <div className="w-full h-full flex justify-between gap-5 p-4  ">
         <div className="flex w-[300px] h-full p-2 shadow-xl">
           <div className="flex flex-col gap-6 items-center ">

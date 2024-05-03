@@ -8,13 +8,13 @@ const Slider = (props: Props) => {
       <div className="flex w-full h-[350px] relative  ">
         <img
           className="w-full h-full object-cover "
-          src="https://static.vecteezy.com/system/resources/previews/001/311/141/original/abstract-black-grunge-banner-background-free-vector.jpg"
+          src="https://png.pngtree.com/thumb_back/fw800/back_pic/03/93/99/8257e7bbd63b3ff.jpg"
           alt=""
         />
-        <span className="absolute w-full h-full  bg-gradient-to-r from-transparent to-black"></span>
-        <div className="absolute right-[200px] top-5  h-96 w-[70%] flex  items-center justify-center lg:right-[50px] ">
+        <span className="absolute w-full h-full  bg-gradient-to-r from-transparent to-black/20"></span>
+        <div className="absolute right-[200px] top-0  h-96 w-[70%] flex  items-center justify-center lg:right-[50px] ">
           <img
-            className=" w-[600px] h-[250px] object-cover lg:hidden  "
+            className=" w-[600px] h-[300px] object-cover lg:hidden  "
             src="https://www.pngall.com/wp-content/uploads/5/Full-HD-LED-TV-PNG-Clipart.png"
             alt=""
           />
