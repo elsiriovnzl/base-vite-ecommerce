@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../../store";
 import { Auth, AuthResponse } from "./models/type";
-import { URL_HOST_DEV } from "../../../lib/utils";
+import { URL_HOST_DEV, URL_HOST_PROD } from "../../../lib/utils";
 import axios from "axios";
 
 export interface AuthSliceState {
@@ -83,7 +83,7 @@ export const loginUser =
     try {
       dispatch(loading());
 
-      const res = await axios.post(`${URL_HOST_DEV}/api/v1/Auth/login`, {
+      const res = await axios.post(`${URL_HOST_PROD}/api/v1/Auth/login`, {
         username,
         password,
       });

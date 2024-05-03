@@ -26,7 +26,6 @@ export default function HorizontalLinearStepper() {
   const fullDate = `${date.getFullYear()}-${(date.getMonth() + 1)
     .toString()
     .padStart(2, "0")}-${date.getDay().toString().padStart(2, "0")}`;
-  console.log(fullDate);
   const router = useNavigate();
   const Cart = useAppSelector(cart);
   const [activeStep, setActiveStep] = useState(0);
