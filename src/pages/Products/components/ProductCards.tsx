@@ -1,8 +1,8 @@
 import React from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { useAppDispatch } from "../hooks";
-import { postProductInCart } from "../redux/Products/CartSlice";
-import { FaEye } from "react-icons/fa";
+import { useAppDispatch } from "../../../hooks";
+import { postProductInCart } from "../../../redux/Products/CartSlice";
+import { FaCartPlus, FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 interface ProductCardProps {
@@ -35,7 +35,7 @@ const ProductCards = ({
   const dispatch = useAppDispatch();
 
   return (
-    <div className="h-[450px] w-[290px] shadow-lg flex flex-col ">
+    <div className="h-[400px] w-[250px] shadow-lg flex flex-col ">
       <div className="flex-1 items-center justify-center ">
         <img
           src={img}
@@ -79,7 +79,7 @@ const ProductCards = ({
               }
               className="bg-yellow-300  p-2 text-sm rounded-md text-gray-600 hover:text-gray-800 hover:bg-yellow-500"
             >
-              Agregar al carro
+              <FaCartPlus size={20} />
             </button>
             <Link to={`/Productos/${id}`}>
               <button className="bg-yellow-300 flex gap-2 p-2 text-sm rounded-md text-gray-600 hover:text-gray-800 hover:bg-yellow-500">

@@ -44,54 +44,56 @@ const SingleProduct = ({}: SingleProductType) => {
 
     if (operation === "image" && image) {
       setViewImage(image);
-      setIsOpenImage(true)
+      setIsOpenImage(true);
     }
   };
 
   return !loading ? (
-    <div className="flex w-[100vw] h-full  items-center justify-center flex-col pt-[180px] gap-16 realtive ">
+    <div className="flex w-[100vw] h-auto  items-center justify-center flex-col pt-5  realtive  ">
       <div
-        className=" w-[70%] h-[550px] flex items-center justify-center lg:flex-col lg:h-[1100px] 
+        className=" w-[70%]  h-autto p-4 flex items-center justify-center lg:flex-col lg:h-[1100px] 
       md:flex-col md:h-auto  sm:flex-col sm:h-[1000px] gap-2  "
       >
-        <div className="flex-1 flex items-center justify-center  h-full w-full">
-          <div className="h-full w-full p-3 border-gray-400 border rounded-xl">
-            <img
-              src={product?.products_img1}
+        <div className=" flex flex-col  items-center justify-center   w-full h-full  p-2">
+          <img
+            src={product?.products_img1}
+            alt=""
+            className="w-[600px] h-[600px] object-contain sm:object-contain md:object-contain border-4 border-yellow-400 p-10 rounded-xl  "
+          />
+          <div className="flex h-28 w-full gap-3  items-center justify-between  overflow-hidden md:hidden sm:hidden ">
+            <img // IMAGES SECUNDARIES
+              src={product?.products_img2}
               alt=""
-              className="w-full h-[400px]  object-contain sm:object-contain md:object-contain  "
+              className="w-full h-full object-contain shadow-xl p-5 rounded-lg cursor-pointer hover:border border-black"
+              onClick={() => handleClick("image", product?.products_img2)}
             />
-            <div className="flex h-28 w-full gap-3  items-center justify-between  overflow-hidden md:hidden sm:hidden ">
-              {/* IMAGES SECUNDARIES */}
-              <img
-                src={product?.products_img2}
-                alt=""
-                className="w-full h-full object-contain shadow-xl p-5 rounded-lg cursor-pointer hover:border border-black"
-                onClick={() => handleClick("image", product?.products_img2)}
-              />
-              <img
-                src={product?.products_img3}
-                alt=""
-                className="w-full h-full object-contain shadow-xl p-5 rounded-lg cursor-pointer hover:border border-black"
-                onClick={() => handleClick("image", product?.products_img3)}
-              />
-              <img
-                src={product?.products_img4}
-                alt=""
-                className="w-full h-full object-contain shadow-xl p-5 rounded-lg cursor-pointer hover:border border-black"
-                onClick={() => handleClick("image", product?.products_img4)}
-              />
-            </div>
+            <img
+              src={product?.products_img3}
+              alt=""
+              className="w-full h-full object-contain shadow-xl p-5 rounded-lg cursor-pointer hover:border border-black"
+              onClick={() => handleClick("image", product?.products_img3)}
+            />
+            <img
+              src={product?.products_img4}
+              alt=""
+              className="w-full h-full object-contain shadow-xl p-5 rounded-lg cursor-pointer hover:border border-black"
+              onClick={() => handleClick("image", product?.products_img4)}
+            />
           </div>
         </div>
-        {isOpenImage && viewImage && <PopUpImage image={viewImage} setIsClose={setIsOpenImage} isOpenImage={isOpenImage} />}
-        <div className="flex-1 flex h-full w-full p-2 flex-col gap-6 ">
+        {isOpenImage && viewImage && (
+          <PopUpImage
+            image={viewImage}
+            setIsClose={setIsOpenImage}
+            isOpenImage={isOpenImage}
+          />
+        )}
+        <div className=" flex h-full w-full p-2 flex-col gap-6 ">
           <div className="flex flex-col gap-2 sm:flex-col">
             <p className="text-2xl font-bold">{product?.products_tiltle} </p>
             <p>{product?.products_description}</p>
           </div>
-          <div className="flex m-3 rounded-xl h-24 p-2 gap-5 w-full items-center justify-start sm:hidden ">
-            {/* COLOR */}
+          <div className="flex m-3 rounded-xl h-full p-2 gap-5 w-full items-center justify-start sm:hidden ">
             <p className="text-2xl"> ${product.products_total}</p>
             <div className="flex flex-col gap-1 ">
               <p>Color</p>
@@ -171,11 +173,10 @@ const SingleProduct = ({}: SingleProductType) => {
       {/*  <div className="w-[70%] m-2">
        <Comments/>
       </div> */}
-      <Footer />
     </div>
   ) : (
     <div className="flex w-[100vw] h-[100vh]  items-center justify-center flex-col pt-[180px]">
-      <LinearProgress className="w-[80%] h-full"/>
+      <LinearProgress className="w-[80%] h-full" />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from "react";
-import { ProductsProps } from "../../../pages/Home";
+import { ProductsProps } from "../../../pages/Home/Home";
 import { FaCreditCard } from "react-icons/fa";
 import { FormData } from "./Types";
 

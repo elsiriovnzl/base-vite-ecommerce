@@ -16,6 +16,9 @@ import {
   postCurrentPage,
 } from "../redux/Products/currentPage/CurrentPageSlice";
 
+import { userIsLogged } from "../redux/Products/Auth/AuthSlice";
+import Logout from "../pages/auth/Logout";
+
 type Props = {
   openCartFn: Dispatch<SetStateAction<boolean>>;
   openCart: boolean;
@@ -24,6 +27,7 @@ type Props = {
 const NavBar = ({ openCart, openCartFn }: Props) => {
   const history = useLocation();
   const page = useAppSelector(currentPageActive);
+  const userInSession = useAppSelector(userIsLogged);
   const dispatch = useAppDispatch();
   const [hrefLabel, setHrefLabel] = useState<
     { id: string; name: string; href: string }[]
@@ -38,7 +42,7 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
   }, [history?.pathname]);
 
   return (
-    <div className="flex items-center  justify-around sm:pl-4 w-full h-[100px]  border-b-2 ">
+    <div className="flex items-center  justify-around  w-full h-[100px]  sticky border-b-2 ">
       <div className="w-[180px] h-[90px]  ">
         <Link to={"/"}>
           <img
@@ -53,7 +57,6 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
           {hrefLabel.map((label, idx) => (
             <Link to={label.href} key={idx}>
               <li
-                
                 className={`cursor-pointer  ${
                   label.href === page ? " border-b-4 border-yellow-300" : ""
                 }`}
@@ -65,9 +68,15 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
           ))}
         </ul>
         <div className="flex gap-6 items-center">
-          <div className="">
-            <CgProfile cursor={"pointer"} size={30} />
-          </div>
+          {userInSession ? (
+            <Link to="/Perfil">
+              <CgProfile cursor={"pointer"} size={30} />
+            </Link>
+          ) : (
+            <Link to="/Inicio" className="font-bold">
+              Ingresar
+            </Link>
+          )}
           <div
             className="relative cursor-pointer"
             onClick={() => openCartFn(!openCart)}
@@ -77,6 +86,7 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
               <span className="font-bold select-none">{Cart.length}</span>
             </div>
           </div>
+          <div className="">{userInSession && <Logout />}</div>
           <div className=" hidden md:flex">
             <RxHamburgerMenu size={30} cursor={"pointer"} />
           </div>

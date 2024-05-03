@@ -1,5 +1,5 @@
 import React, { useId, useState } from "react";
-import SlugViewCard from "./SlugViewCard";
+import SlugViewCard from "../../../components/SlugViewCard";
 
 type Props = {};
 

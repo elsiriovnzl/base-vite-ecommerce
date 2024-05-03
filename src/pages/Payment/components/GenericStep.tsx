@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { OrderType, StepProps } from "./payment/steps/Types";
-import { useAppSelector } from "../hooks";
-import { cart } from "../redux/Products/CartSlice";
+import { OrderType, StepProps } from "../components/steps/Types";
+import { useAppSelector } from "../../../hooks";
+import { cart } from "../../../redux/Products/CartSlice";
 
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -13,8 +13,8 @@ import Alert from "@mui/material/Alert";
 
 import { MdOutlineErrorOutline } from "react-icons/md";
 
-import StepOne from "./payment/steps/StepOne";
-import StepTwo from "./payment/steps/StepTwo";
+import StepOne from "../components/steps/StepOne";
+import StepTwo from "../components/steps/StepTwo";
 
 interface ErrorProps {
   message: string;

@@ -1,4 +1,4 @@
-import { ProductsProps } from "../../../pages/Home";
+import { ProductsProps } from "../../../pages/Home/Home";
 
 export type BanksType = {
   id: string;

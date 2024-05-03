@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../store";
 import axios from "axios";
 
-import { ProductsProps } from "../../pages/Home";
+import { ProductsProps } from "../../pages/Home/Home";
 import { URL_HOST_PROD } from "../../lib/utils";
 
 
