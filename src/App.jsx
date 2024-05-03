@@ -1,30 +1,28 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Products from "./pages/Products";
-import Profile from "./pages/Profile";
-import Payment from "./pages/Payment";
-import SubNavBar from "./components/SubNavBar";
+import Home from "./pages/Home/Home";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import Products from "./pages/Products/Products";
+import Profile from "./pages/Profile/Profile";
+import Payment from "./pages/Payment/Payment";
+/* import SubNavBar from "./components/SubNavBar"; */
 import NavBar from "./components/NavBar";
 import SliderCart from "./components/SliderCart";
 import SingleProduct from "./pages/SingleProducts/SingleProduct";
+import Footer from "./components/Footer";
 
 function App() {
   const [openCart, setopenCart] = useState(false);
-  let user = true;
 
-  return user ? (
-    <div className="w-[100vw] relative h-auto flex flex-col overflow-y-auto overflow-hidden justify-center">
-      <div className="flex flex-col w-full  bg-white z-10 fixed top-0">
-        <SubNavBar />
-        <NavBar openCartFn={setopenCart} openCart={openCart} />
-      </div>
+  return (
+    <div className="w-[100vw]  h-auto  flex flex-col overflow-y-auto overflow-hidden justify-center  ">
+      {/*  <SubNavBar /> */}
+
+      <NavBar openCartFn={setopenCart} openCart={openCart} />
 
       {openCart && <SliderCart />}
-    
 
       <Routes>
         <Route path="/" index element={<Home />} />
@@ -32,13 +30,12 @@ function App() {
         <Route path="/Productos/:id" index element={<SingleProduct />} />
         <Route path="/Perfil" index element={<Profile />} />
         <Route path="/Pago" index element={<Payment />} />
+        <Route path="/Inicio" index element={<Login />} />
+        <Route path="/Registro" index element={<Register />} />
       </Routes>
+
+      <Footer />
     </div>
-  ) : (
-    <Routes>
-      <Route path="/" index element={<Login />} />
-      <Route path="/Registro" index element={<Register />} />
-    </Routes>
   );
 }
 

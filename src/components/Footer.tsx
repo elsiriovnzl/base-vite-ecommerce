@@ -5,7 +5,7 @@ type Props = {}
 const Footer = (props: Props) => {
   return (
 <footer
-  className="bg-black h-full text-center text-white dark:bg-neutral-700 dark:text-white/75 lg:text-left">
+  className="bg-black h-full text-center text-white dark:bg-neutral-700 dark:text-white/75 lg:text-left sticky bottom-0">
   <div
     className="flex items-center justify-center border-b-2  border-neutral-200 p-6 dark:border-white/10 lg:justify-between">
     <div className="me-12 hidden lg:block">

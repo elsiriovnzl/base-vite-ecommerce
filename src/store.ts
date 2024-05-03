@@ -1,17 +1,19 @@
-import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit'
-import  ProductSliceReducer  from './redux/Products/ProductSlice';
-import  CartSliceReducer  from './redux/Products/CartSlice';
-import  SiderBarMenuReducer  from './redux/Products/currentPage/CurrentPageSlice';
-import   SingleProductSliceReducer  from './redux/Products/SingleProduct';
+import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit";
+import ProductSliceReducer from "./redux/Products/ProductSlice";
+import CartSliceReducer from "./redux/Products/CartSlice";
+import SiderBarMenuReducer from "./redux/Products/currentPage/CurrentPageSlice";
+import SingleProductSliceReducer from "./redux/Products/SingleProduct";
+import AuthSliceReducer from "./redux/Products/Auth/AuthSlice";
 
 export const store = configureStore({
   reducer: {
-    products : ProductSliceReducer,
+    products: ProductSliceReducer,
     cart: CartSliceReducer,
     page: SiderBarMenuReducer,
-    singleProduct: SingleProductSliceReducer
+    singleProduct: SingleProductSliceReducer,
+    auth: AuthSliceReducer,
   },
-})
+});
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

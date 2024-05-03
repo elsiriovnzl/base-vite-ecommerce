@@ -1,7 +1,7 @@
-import React, { ChangeEvent, FocusEvent, useEffect, useState } from "react";
-import { getAllProduct, getProducts } from "../redux/Products/ProductSlice";
-import { useAppDispatch, useAppSelector } from "../hooks";
-import ProductCards from "../components/ProductCards";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { getAllProduct, getProducts } from "../../redux/Products/ProductSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import ProductCards from "./components/ProductCards";
 
 const Products = () => {
   const products = useAppSelector(getProducts);
@@ -18,9 +18,9 @@ const Products = () => {
     dispatch(getAllProduct());
   }, []);
   return (
-    <div className="w-[100vw] h-full pt-[150px] flex justify-center ">
-      <div className="w-[80%] flex justify-between gap-5">
-        <div className="flex w-[300px] h-full  p-2 shadow-xl">
+    <div className="w-full h-full flex justify-center items-center ">
+      <div className="w-full h-full flex justify-between gap-5 p-4  ">
+        <div className="flex w-[300px] h-full p-2 shadow-xl">
           <div className="flex flex-col gap-6 items-center ">
             <div className="flex flex-col h-[30px] w-full">
               <input
@@ -57,7 +57,7 @@ const Products = () => {
             </button>
           </div>
         </div>
-        <div className="flex  h-full  w-full  flex-wrap p-2  gap-3 flex-grow justify-center transition-all ease-out ">
+        <div className="flex  h-full  w-full  flex-wrap   gap-3  justify-center overflow-y-auto ">
           {products
             .filter((product) =>
               !search

@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, useId, useState } from "react";
 import { FormControl } from "@mui/material";
 import { FaBlenderPhone } from "react-icons/fa";
 import { OrderType, Quotes } from "./Types";
-import { ProductsProps } from "../../../pages/Home";
+import { ProductsProps } from "../../../pages/Home/Home";
 import axios from "axios";
 
 interface Props {

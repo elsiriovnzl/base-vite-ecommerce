@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 
-import HorizontalLinearStepper from "../components/GenericStep";
-import { cart } from "../redux/Products/CartSlice";
-import { useAppSelector } from "../hooks";
+import HorizontalLinearStepper from "./components/GenericStep";
+import { cart } from "../../redux/Products/CartSlice";
+import { useAppSelector } from "../../hooks";
 import { useNavigate } from "react-router-dom";
 
 const Payment = () => {
@@ -14,7 +14,7 @@ const Payment = () => {
 
   return (
     <div
-      className=" w-full h-full overflow-y-auto pt-[150px] flex items-center justify-center
+      className=" w-full h-full overflow-y-auto  flex items-center justify-center
     p-4"
     >
       <div className="flex w-[70%] h-full items-center">
