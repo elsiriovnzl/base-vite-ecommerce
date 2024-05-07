@@ -69,7 +69,7 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
         </ul>
         <div className="flex gap-6 items-center">
           {userInSession ? (
-            <Link to="/">
+            <Link to="/Perfil">
               <CgProfile cursor={"pointer"} size={30} />
             </Link>
           ) : (
