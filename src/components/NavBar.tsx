@@ -15,6 +15,7 @@ import {
   currentPageActive,
   postCurrentPage,
 } from "../redux/Products/currentPage/CurrentPageSlice";
+import logo from "../assets/elsirio.png";
 
 import { userIsLogged } from "../redux/Products/Auth/AuthSlice";
 import Logout from "../pages/auth/Logout";
@@ -45,11 +46,7 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
     <div className="flex items-center  justify-around  w-full h-[100px]  sticky border-b-2 ">
       <div className="w-[180px] h-[90px]  ">
         <Link to={"/"}>
-          <img
-            className="-w-full h-full"
-            src="https://i.pinimg.com/originals/b7/25/fb/b725fb67a8f353788f0c5882699b682a.jpg"
-            alt=""
-          />
+          <img className="-w-full h-full object-cover" src={logo} alt="" />
         </Link>
       </div>
       <div className=" flex gap-10 m-4  ">
