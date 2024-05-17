@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { OrderType, StepProps } from "../components/steps/Types";
-import { useAppSelector } from "../../../hooks";
-import { cart } from "../../../redux/Products/CartSlice";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
+import { cart, deleteAll } from "../../../redux/Products/CartSlice";
+import { useNavigate } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -12,9 +12,13 @@ import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 
 import { MdOutlineErrorOutline } from "react-icons/md";
+import { toast } from "react-toastify";
 
 import StepOne from "../components/steps/StepOne";
 import StepTwo from "../components/steps/StepTwo";
+import StepThree from "./steps/StepThree";
+import { URL_HOST_DEV, useApiBank } from "../../../lib/utils";
+import axios from "axios";
 
 interface ErrorProps {
   message: string;
@@ -23,10 +27,11 @@ interface ErrorProps {
 
 export default function HorizontalLinearStepper() {
   const date = new Date();
+  const route = useNavigate();
+  const dispatch = useAppDispatch();
   const fullDate = `${date.getFullYear()}-${(date.getMonth() + 1)
     .toString()
-    .padStart(2, "0")}-${date.getDay().toString().padStart(2, "0")}`;
-  const router = useNavigate();
+    .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
   const Cart = useAppSelector(cart);
   const [activeStep, setActiveStep] = useState(0);
   const [quotes, setQuotes] = useState(3);
@@ -47,12 +52,13 @@ export default function HorizontalLinearStepper() {
     quotes,
     polity: false,
     credit: false,
+    payment: false,
     cedulaPagador: "",
     telefonoPagador: "",
     telefonoDestino: "04241708810",
     referencia: "",
     fechaPago: datePayment,
-    importe: `${convert / quotes}`,
+    importe: `${(convert / quotes).toFixed(2)}`,
     bancoOrigen: bankCode ?? "",
     statusOrder: "pendiente",
     totalUSD: total,
@@ -60,7 +66,7 @@ export default function HorizontalLinearStepper() {
     convertVEF: 0,
     cart: Cart,
   });
-  console.log(data);
+
   const [isError, setIsError] = useState<ErrorProps | null>(null);
   const steps: StepProps[] = [
     {
@@ -88,8 +94,12 @@ export default function HorizontalLinearStepper() {
         />
       ),
     },
+    {
+      id: 3,
+      title: "Estado de pedido",
+      component: () => <StepThree />,
+    },
   ];
-
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -117,12 +127,38 @@ export default function HorizontalLinearStepper() {
       : setData({ ...data, polity: false });
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    if (activeStep === steps.length - 1) {
+      await axios
+        .post(
+          `${URL_HOST_DEV}/api/v1/Order`,
+          { data },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        )
+        .finally(() => {
+          route("/");
+          dispatch(deleteAll());
+        });
+    }
     const isValid = validateStep(activeStep);
     if (!isValid) return;
 
-    if (activeStep === steps.length - 1) {
-      router("/");
+    if (activeStep === 1) {
+      const res = await useApiBank(
+        "http://localhost:3000/api/v1/payment/mobile",
+        data
+      );
+
+      if (res.code === 1010) {
+        toast.error(res.message);
+        return;
+      }
+      setData({ ...data, payment: true });
+      toast.success(res.message);
     }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -136,7 +172,8 @@ export default function HorizontalLinearStepper() {
           !data.name ||
           !data.cedulaPagador ||
           !data.telefonoPagador ||
-          data.quotes === 0
+          data.quotes === 0 || 
+          !data.payment
         ) {
           setIsError({
             message: "Todos los campos son obligatorios",
@@ -145,6 +182,7 @@ export default function HorizontalLinearStepper() {
           return false;
         }
         break;
+
       default:
         if (!data.polity || !data.credit) {
           setIsError({
@@ -185,7 +223,7 @@ export default function HorizontalLinearStepper() {
               >
                 <Button onClick={handleNext} variant="contained" size="large">
                   {activeStep === steps.length - 1
-                    ? "Finalizar Orden"
+                    ? "Volver al Inicio"
                     : "Continuar"}
                 </Button>
                 {isError && (

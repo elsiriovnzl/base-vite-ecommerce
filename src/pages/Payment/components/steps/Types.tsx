@@ -1,4 +1,4 @@
-import { ProductsProps } from "../../../pages/Home/Home";
+import { ProductsProps } from "../../../Home/Home";
 
 export type BanksType = {
   id: string;
@@ -24,6 +24,7 @@ export type OrderType = {
   quotes: number;
   polity: boolean;
   credit: boolean;
+  payment: boolean,
   cedulaPagador: string;
   telefonoPagador: string;
   telefonoDestino: string;

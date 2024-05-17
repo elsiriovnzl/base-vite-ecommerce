@@ -73,6 +73,10 @@ export const CartSliceReducer = createSlice({
       );
       localStorage.setItem("product", JSON.stringify(state.list));
     },
+    deleteAllCart: (state) => {
+      state.list = []
+      localStorage.setItem("product", JSON.stringify(state.list));
+    },
     deleteOneProduct: (state, action) => {
       const findQuantity = state.list.find(
         (p) => p.products_id === action.payload
@@ -108,6 +112,7 @@ export const {
   viewProductsInCart,
   deleteOneProductsInCart,
   deleteOneProduct,
+  deleteAllCart
 } = CartSliceReducer.actions;
 
 /* SELECTOR */
@@ -141,6 +146,17 @@ export const deleteOne =
       console.log(error);
     }
   };
+
+  export const deleteAll =
+  (): AppThunk =>
+  async (dispatch, getState) => {
+    try {
+      dispatch(deleteAllCart());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 export const addOneSingle =
   (product: ProductsProps, quantity: number): AppThunk =>
   async (dispatch, getState) => {

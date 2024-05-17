@@ -37,7 +37,7 @@ export const AuthSliceReducer = createSlice({
     login(state, action) {
       state.loading = false;
       state.auth = { user: action.payload.user, token: action.payload.token, isLogged:true };
-      localStorage.setItem("token", JSON.stringify(state.auth.token));
+      localStorage.setItem("token", state.auth.token);
     },
     logout(state) {
       state.auth = {
