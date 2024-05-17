@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 type Props = {};
 
 const Slider = (props: Props) => {
+
+ 
+    const [dni, setDni] = useState('');
+
   return (
     <div className=" h-[350px]  w-full flex items-center   ">
       <div className="flex w-full h-[350px] relative  ">
@@ -19,12 +23,21 @@ const Slider = (props: Props) => {
             alt=""
           />
           <div className="flex flex-col items-center justify-between w-full gap-10 text-center">
-            <h1 className="text-2xl text-white">
-              SLIDER DE COMPRAS AHORA MISMO
-            </h1>
-            <button className=" rounded-xl w-72 h-10 border-2 border-white text-white ">
+            
+            <form>
+              <input 
+              className="text-center"
+              type="text"
+              value={dni}
+              onChange={(event) => setDni(event.target.value)}
+              placeholder="D.N.I"
+              required
+              />
+              <button className="rounded-xl w-40 h-30 border-2 border-white text-white " type="submit">Revisar Pagos</button>
+            </form>
+            {/* <button className=" rounded-xl w-72 h-10 border-2 border-white text-white ">
               Compra ahora
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
