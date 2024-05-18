@@ -17,7 +17,7 @@ const Profile = () => {
         },
         {
           id: useId(),
-          productName: "mochilas",
+          productName: "mochila",
           price: 230,
           stock: 2,
         }
