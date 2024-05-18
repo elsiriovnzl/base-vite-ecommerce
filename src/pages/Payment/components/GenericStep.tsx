@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 import StepOne from "../components/steps/StepOne";
 import StepTwo from "../components/steps/StepTwo";
 import StepThree from "./steps/StepThree";
-import { URL_HOST_DEV, useApiBank } from "../../../lib/utils";
+import { URL_HOST_DEV, URL_HOST_PROD, useApiBank } from "../../../lib/utils";
 import axios from "axios";
 
 interface ErrorProps {
@@ -26,17 +26,12 @@ interface ErrorProps {
 }
 
 export default function HorizontalLinearStepper() {
-  const date = new Date();
   const route = useNavigate();
   const dispatch = useAppDispatch();
-  const fullDate = `${date.getFullYear()}-${(date.getMonth() + 1)
-    .toString()
-    .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
   const Cart = useAppSelector(cart);
   const [activeStep, setActiveStep] = useState(0);
   const [quotes, setQuotes] = useState(3);
   const [bankCode, setBankCode] = useState<string>("0102");
-  const [datePayment, setDatePayment] = useState<string>(fullDate);
 
   const total = Cart?.reduce(
     (acc, obj) => acc + obj.products_total * (obj?.quantity ?? 0),
@@ -52,12 +47,11 @@ export default function HorizontalLinearStepper() {
     quotes,
     polity: false,
     credit: false,
-    payment: false,
     cedulaPagador: "",
     telefonoPagador: "",
     telefonoDestino: "04241708810",
     referencia: "",
-    fechaPago: datePayment,
+    fechaPago: "",
     importe: `${(convert / quotes).toFixed(2)}`,
     bancoOrigen: bankCode ?? "",
     statusOrder: "pendiente",
@@ -131,7 +125,7 @@ export default function HorizontalLinearStepper() {
     if (activeStep === steps.length - 1) {
       await axios
         .post(
-          `${URL_HOST_DEV}/api/v1/Order`,
+          `${URL_HOST_PROD}/api/v1/Order`,
           { data },
           {
             headers: {
@@ -146,10 +140,9 @@ export default function HorizontalLinearStepper() {
     }
     const isValid = validateStep(activeStep);
     if (!isValid) return;
-
     if (activeStep === 1) {
       const res = await useApiBank(
-        "http://localhost:3000/api/v1/payment/mobile",
+        `${URL_HOST_PROD}/api/v1/payment/mobile`,
         data
       );
 
@@ -157,7 +150,6 @@ export default function HorizontalLinearStepper() {
         toast.error(res.message);
         return;
       }
-      setData({ ...data, payment: true });
       toast.success(res.message);
     }
 
@@ -172,8 +164,7 @@ export default function HorizontalLinearStepper() {
           !data.name ||
           !data.cedulaPagador ||
           !data.telefonoPagador ||
-          data.quotes === 0 || 
-          !data.payment
+          data.quotes === 0
         ) {
           setIsError({
             message: "Todos los campos son obligatorios",

@@ -24,7 +24,6 @@ export type OrderType = {
   quotes: number;
   polity: boolean;
   credit: boolean;
-  payment: boolean,
   cedulaPagador: string;
   telefonoPagador: string;
   telefonoDestino: string;

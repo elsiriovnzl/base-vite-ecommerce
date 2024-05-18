@@ -164,6 +164,7 @@ const StepTwo = ({
                   </option>
                 ))}
               </select>
+             <input type="date" name="fechaPago"  onChange={handleChange} />
             </div>
             <div className="flex flex-col">
               <label htmlFor="quotes" className="text-center">
