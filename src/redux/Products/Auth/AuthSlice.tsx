@@ -21,7 +21,7 @@ const initialState: AuthSliceState = {
       address: "",
       email: "",
     },
-    token: "",
+    token: "" || localStorage.getItem('token'),
     isLogged:false
   },
   loading: false,
@@ -37,7 +37,7 @@ export const AuthSliceReducer = createSlice({
     login(state, action) {
       state.loading = false;
       state.auth = { user: action.payload.user, token: action.payload.token, isLogged:true };
-      localStorage.setItem("token", state.auth.token);
+       localStorage.setItem("token", action.payload.token );
     },
     logout(state) {
       state.auth = {

@@ -4,13 +4,21 @@ import HorizontalLinearStepper from "./components/GenericStep";
 import { cart } from "../../redux/Products/CartSlice";
 import { useAppSelector } from "../../hooks";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { token } from "../../redux/Products/Auth/AuthSlice";
 
 const Payment = () => {
   const Cart = useAppSelector(cart);
   const router = useNavigate();
+  const istoken = useAppSelector(token);
   useEffect(() => {
     !Cart.length && router("/");
-  }, [Cart]);
+    if(!istoken) {
+      toast.warning('Favor inicia de session para realizar el pedido')
+      router("/Inicio");
+    } 
+
+  }, [Cart, istoken]);
 
   return (
     <div

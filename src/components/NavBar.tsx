@@ -17,7 +17,7 @@ import {
 } from "../redux/Products/currentPage/CurrentPageSlice";
 import logo from "../assets/elsirio.png";
 
-import { userIsLogged } from "../redux/Products/Auth/AuthSlice";
+import { token} from "../redux/Products/Auth/AuthSlice";
 import Logout from "../pages/auth/Logout";
 
 type Props = {
@@ -28,7 +28,7 @@ type Props = {
 const NavBar = ({ openCart, openCartFn }: Props) => {
   const history = useLocation();
   const page = useAppSelector(currentPageActive);
-  const userInSession = useAppSelector(userIsLogged);
+  const istoken = useAppSelector(token);
   const dispatch = useAppDispatch();
   const [hrefLabel, setHrefLabel] = useState<
     { id: string; name: string; href: string }[]
@@ -65,7 +65,7 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
           ))}
         </ul>
         <div className="flex gap-6 items-center">
-          {userInSession ? (
+          {istoken ? (
             <Link to="/Perfil">
               <CgProfile cursor={"pointer"} size={30} />
             </Link>
@@ -83,7 +83,7 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
               <span className="font-bold select-none">{Cart.length}</span>
             </div>
           </div>
-          <div className="">{userInSession && <Logout />}</div>
+          <div className="">{istoken && <Logout />}</div>
           <div className=" hidden md:flex">
             <RxHamburgerMenu size={30} cursor={"pointer"} />
           </div>

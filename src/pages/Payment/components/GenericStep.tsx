@@ -125,7 +125,7 @@ export default function HorizontalLinearStepper() {
     if (activeStep === steps.length - 1) {
       await axios
         .post(
-          `${URL_HOST_PROD}/api/v1/Order`,
+          `${URL_HOST_DEV}/api/v1/Order`,
           { data },
           {
             headers: {
