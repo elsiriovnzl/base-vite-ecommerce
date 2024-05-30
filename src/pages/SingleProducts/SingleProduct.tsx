@@ -1,8 +1,8 @@
-import React, { MouseEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-import { FaStar, FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt } from "react-icons/fa";
 import { TbTruckDelivery } from "react-icons/tb";
-import Footer from "../../components/Footer";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import {
@@ -13,8 +13,6 @@ import {
 import { addOneSingle } from "../../redux/Products/CartSlice";
 import PopUpImage from "./components/PopUpImage";
 import { LinearProgress } from "@mui/material";
-/* import CardGeneric from "../components/CardGeneric";
-import Comments from "../components/Comments"; */
 
 type SingleProductType = {};
 
@@ -56,30 +54,10 @@ const SingleProduct = ({}: SingleProductType) => {
       >
         <div className=" flex flex-col  items-center justify-center   w-full h-full  p-2">
           <img
-            src={product?.products_img1}
-            alt=""
+            src={`http://localhost:3000/uploads/${product.image}`}
+            alt={product?.products_tiltle ?? "Product Image"}
             className="w-[600px] h-[600px] object-contain sm:object-contain md:object-contain border-4 border-yellow-400 p-10 rounded-xl  "
           />
-          <div className="flex h-28 w-full gap-3  items-center justify-between  overflow-hidden md:hidden sm:hidden ">
-            <img // IMAGES SECUNDARIES
-              src={product?.products_img2}
-              alt=""
-              className="w-full h-full object-contain shadow-xl p-5 rounded-lg cursor-pointer hover:border border-black"
-              onClick={() => handleClick("image", product?.products_img2)}
-            />
-            <img
-              src={product?.products_img3}
-              alt=""
-              className="w-full h-full object-contain shadow-xl p-5 rounded-lg cursor-pointer hover:border border-black"
-              onClick={() => handleClick("image", product?.products_img3)}
-            />
-            <img
-              src={product?.products_img4}
-              alt=""
-              className="w-full h-full object-contain shadow-xl p-5 rounded-lg cursor-pointer hover:border border-black"
-              onClick={() => handleClick("image", product?.products_img4)}
-            />
-          </div>
         </div>
         {isOpenImage && viewImage && (
           <PopUpImage

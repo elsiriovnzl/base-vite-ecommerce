@@ -44,7 +44,7 @@ const SliderCart = ({}: Props) => {
             className=" w-full h-[200px] justify-center items-center flex flex-col  shadow-xl gap-5 p-4"
           >
             <img
-              src={p.products_img1}
+              src={`http://localhost:3000/uploads/${p?.image}`}
               alt=""
               className="w-[200px] h-[100px] object-contain"
             />

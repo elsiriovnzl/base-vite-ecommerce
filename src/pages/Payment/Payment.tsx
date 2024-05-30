@@ -33,7 +33,7 @@ const Payment = () => {
               className="flex  h-[150px] w-full  justify-between p-2 items-center shadow-xl"
             >
               <div className="flex w-[200px] h-full">
-                <img src={cart.products_img1} alt="" />
+                <img src={`http://localhost:3000/uploads/${cart?.image}`} alt="" />
               </div>
               <div className="flex flex-col flex-1 h-full justify-between items-center w-full p-3 bg-slate-500/30 rounded-xl">
                 <span>{cart.products_tiltle}</span>
