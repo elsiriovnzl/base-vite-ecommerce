@@ -6,6 +6,7 @@ import { useAppSelector } from "../../hooks";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { token } from "../../redux/Products/Auth/AuthSlice";
+import { URL_HOST_PROD } from "../../lib/utils";
 
 const Payment = () => {
   const Cart = useAppSelector(cart);
@@ -33,7 +34,7 @@ const Payment = () => {
               className="flex  h-[150px] w-full  justify-between p-2 items-center shadow-xl"
             >
               <div className="flex w-[200px] h-full">
-                <img src={`http://localhost:3000/uploads/${cart?.image}`} alt="" />
+                <img src={`${URL_HOST_PROD}/uploads/${cart?.image}`} alt="" />
               </div>
               <div className="flex flex-col flex-1 h-full justify-between items-center w-full p-3 bg-slate-500/30 rounded-xl">
                 <span>{cart.products_tiltle}</span>

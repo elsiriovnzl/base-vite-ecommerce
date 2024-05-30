@@ -13,6 +13,7 @@ import {
 import { addOneSingle } from "../../redux/Products/CartSlice";
 import PopUpImage from "./components/PopUpImage";
 import { LinearProgress } from "@mui/material";
+import { URL_HOST_PROD } from "../../lib/utils";
 
 type SingleProductType = {};
 
@@ -54,7 +55,7 @@ const SingleProduct = ({}: SingleProductType) => {
       >
         <div className=" flex flex-col  items-center justify-center   w-full h-full  p-2">
           <img
-            src={`http://localhost:3000/uploads/${product.image}`}
+            src={`${URL_HOST_PROD}/uploads/${product?.image}`}
             alt={product?.products_tiltle ?? "Product Image"}
             className="w-[600px] h-[600px] object-contain sm:object-contain md:object-contain border-4 border-yellow-400 p-10 rounded-xl  "
           />
