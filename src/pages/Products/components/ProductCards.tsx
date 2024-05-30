@@ -76,7 +76,7 @@ const ProductCards = ({
             <b>${price}</b>
           </div>
           <div className="flex gap-2">
-            <button
+           {/*  <button
               onClick={() =>
                 dispatch(
                   postProductInCart({
@@ -93,7 +93,7 @@ const ProductCards = ({
               className="bg-yellow-300  p-2 text-sm rounded-md text-gray-600 hover:text-gray-800 hover:bg-yellow-500"
             >
               <FaCartPlus size={20} />
-            </button>
+            </button> */}
             <Link to={`/Productos/${id}`}>
               <button className="bg-yellow-300 flex gap-2 p-2 text-sm rounded-md text-gray-600 hover:text-gray-800 hover:bg-yellow-500">
                 Ver

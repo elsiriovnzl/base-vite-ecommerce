@@ -22,7 +22,6 @@ const SliderCart = ({}: Props) => {
     0
   );
 
-
   return (
     <div
       className={`fixed  select-none flex items-center justify-center top-0 right-0  h-full w-[200px] z-10 `}
