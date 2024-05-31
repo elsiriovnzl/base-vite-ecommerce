@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { useAppDispatch } from "../../../hooks";
 import { postProductInCart } from "../../../redux/Products/CartSlice";
 import { FaCartPlus, FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { URL_HOST_DEV, URL_HOST_PROD } from "../../../lib/utils";
 
 interface ProductCardProps {
   id: number;
@@ -34,11 +36,22 @@ const ProductCards = ({
 }: ProductCardProps) => {
   const dispatch = useAppDispatch();
 
+  const [image, setImageSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      const res = await axios.get(`${URL_HOST_PROD}/api/v1/Image/${img}`);
+      setImageSrc(res.data);
+    };
+
+    img && fetchImage();
+  }, [img]);
+
   return (
     <div className="h-[400px] w-[250px] shadow-lg flex flex-col ">
       <div className="flex-1 items-center justify-center ">
         <img
-          src={img}
+           src={`${URL_HOST_PROD}/uploads/${image}`}
           alt=""
           className="h-64  object-contain w-full"
           loading="lazy"
@@ -63,7 +76,7 @@ const ProductCards = ({
             <b>${price}</b>
           </div>
           <div className="flex gap-2">
-            <button
+           {/*  <button
               onClick={() =>
                 dispatch(
                   postProductInCart({
@@ -73,14 +86,14 @@ const ProductCards = ({
                     products_tiltle: name,
                     products_description: description,
                     stock: 1,
-                    quantity: 1,
+                    quantity: 1
                   })
                 )
               }
               className="bg-yellow-300  p-2 text-sm rounded-md text-gray-600 hover:text-gray-800 hover:bg-yellow-500"
             >
               <FaCartPlus size={20} />
-            </button>
+            </button> */}
             <Link to={`/Productos/${id}`}>
               <button className="bg-yellow-300 flex gap-2 p-2 text-sm rounded-md text-gray-600 hover:text-gray-800 hover:bg-yellow-500">
                 Ver

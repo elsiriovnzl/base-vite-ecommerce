@@ -24,6 +24,7 @@ const initialState = {
     categories_name: "",
     product_iva: 0,
     quantity: 0,
+    image: "",
   },
   loading: false,
 };

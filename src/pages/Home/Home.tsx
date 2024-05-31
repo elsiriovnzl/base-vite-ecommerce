@@ -24,12 +24,12 @@ export interface ProductsProps {
   categories_id?: number;
   product_iva?: number;
   quantity?: number;
+  image?: string
 }
 
 const Home = () => {
   const dispatch = useAppDispatch();
   const products = useAppSelector(getProducts);
-
   useEffect(() => {
     dispatch(getAllProduct());
     dispatch(getProductsInCart());
@@ -61,7 +61,7 @@ const Home = () => {
                 name={product.products_tiltle}
                 description={product.products_description}
                 category={product.categories_id}
-                price={product.products_total}
+                price={product?.products_total}
                 quantity={product.stock}
                 brand={product.product_brand}
                 rating={product.product_rating}

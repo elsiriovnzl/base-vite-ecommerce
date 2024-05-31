@@ -10,11 +10,13 @@ const Profile = () => {
   const orders = useAppSelector(getOrders);
   console.log("ema", orders);
 
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getAllOrders());
   }, []);
+
 
   return (
     <>

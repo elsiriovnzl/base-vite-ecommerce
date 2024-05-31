@@ -9,6 +9,7 @@ import {
 } from "../redux/Products/CartSlice";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { useNavigate } from "react-router-dom";
+import { URL_HOST_PROD } from "../lib/utils";
 
 type Props = {};
 
@@ -20,7 +21,6 @@ const SliderCart = ({}: Props) => {
     (acc, obj) => acc + obj.products_total * (obj?.quantity ?? 0),
     0
   );
-
 
   return (
     <div
@@ -44,7 +44,7 @@ const SliderCart = ({}: Props) => {
             className=" w-full h-[200px] justify-center items-center flex flex-col  shadow-xl gap-5 p-4"
           >
             <img
-              src={p.products_img1}
+              src={`${URL_HOST_PROD}/uploads/${p?.image}`}
               alt=""
               className="w-[200px] h-[100px] object-contain"
             />

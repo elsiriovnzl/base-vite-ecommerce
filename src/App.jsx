@@ -12,6 +12,8 @@ import NavBar from "./components/NavBar";
 import SliderCart from "./components/SliderCart";
 import SingleProduct from "./pages/SingleProducts/SingleProduct";
 import Footer from "./components/Footer";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [openCart, setopenCart] = useState(false);
@@ -33,7 +35,7 @@ function App() {
         <Route path="/Inicio" index element={<Login />} />
         <Route path="/Registro" index element={<Register />} />
       </Routes>
-
+      <ToastContainer position="top-right"/>
       <Footer />
     </div>
   );

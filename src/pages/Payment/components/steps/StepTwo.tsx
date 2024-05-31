@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, useId, useState } from "react";
 import { FormControl } from "@mui/material";
 import { FaBlenderPhone } from "react-icons/fa";
 import { OrderType, Quotes } from "./Types";
-import { ProductsProps } from "../../../Home/Home"
+import { ProductsProps } from "../../../Home/Home";
 import axios from "axios";
 
 interface Props {
@@ -62,27 +62,16 @@ const StepTwo = ({
     { id: useId(), code: "0177", bank: "Banfanb" },
     { id: useId(), code: "0191", bank: "BNC Nacional de Crédito" },
   ];
+
   const total = Cart?.reduce(
     (acc, obj) => acc + obj.products_total * (obj?.quantity ?? 0),
     0
   );
 
   const convert = total && total * 36.17;
-  const divideQuotes = convert && convert / data?.quotes;
+  const divideQuotes = convert && (convert / data?.quotes)?.toFixed(2);
 
-  const apiBank = async () => {
-    setLoading(true);
-    await axios
-      .post("http://localhost:3000/api/v1/payment/mobile", data)
-      .then((response) => {
-        console.log("Respuesta:", response.data);
-        setResponseBank(response.data);
-      })
-      .catch((error) => {
-        console.error("Error en la solicitud:", error.message);
-      });
-    setLoading(false);
-  };
+
 
   return (
     <div className="h-full w-full flex gap-5 flex-col ">
@@ -175,9 +164,7 @@ const StepTwo = ({
                   </option>
                 ))}
               </select>
-              <div className="w-full">
-                <input type="date" name="fechaPago" className="w-full h-7 border border-gray-300 rounded-md" onChange={handleChange} />
-              </div>
+             <input type="date" name="fechaPago"  onChange={handleChange} />
             </div>
             <div className="flex flex-col">
               <label htmlFor="quotes" className="text-center">
@@ -205,34 +192,23 @@ const StepTwo = ({
           <div className="w-full h-44 flex  gap-4 items-center bg-slate-300 rounded-md ">
             <div className="gap-2 flex flex-col w-full items-center">
               <span className="font-bold text-2xl ">Datos</span>
-              <span>MOVIL EMPRISE SPA </span>
+              <span>Sirio el venezolano</span>
             </div>
             <div className="gap-2 flex flex-col w-full items-center">
               <span className="font-bold text-2xl ">Rif</span>
-              <span className="text-xl">v-262964892</span>
+              <span className="text-xl">J - 297564802</span>
             </div>
             <div className="">
               <span className="font-bold text-2xl w-full items-center">
-                Banco Santander
+                Banco Venezuela
               </span>
             </div>
             <div className="gap-2 flex flex-col w-full items-center">
               <span className="font-bold text-2xl">N° Cel</span>
-              <span className="text-xl">414-825561855</span>
+              <span className="text-xl">0424-1708810</span>
             </div>
           </div>
           <div className="flex justify-between w-full gap-3 items-center">
-            {loading ? (
-              <div className="loader"></div>
-            ) : (
-              <button
-                className="border rounded-xl w-52 h-24 border-green-500 font-bold hover:bg-green-400 hover:text-white"
-                onClick={apiBank}
-              >
-                Verificar pago
-              </button>
-            )}
-
             {responseBank?.message && (
               <p
                 className={` font-bold ${
@@ -257,7 +233,6 @@ const StepTwo = ({
         <div className="flex flex-col">
           <p className=" font-bold text-2xl"> Cuotas: {data?.quotes} </p>
           <p className=" font-bold text-2Dxl">
-            {" "}
             Total a pagar VEF: {divideQuotes}
           </p>
         </div>

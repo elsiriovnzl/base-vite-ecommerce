@@ -1,31 +1,45 @@
-import React, { FC, useEffect } from "react";
-import { ProductsProps } from "../../../pages/Home/Home";
+import React from "react";
+import { ProductsProps } from "../../../Home/Home";
 import { FaCreditCard } from "react-icons/fa";
-import { FormData } from "./Types";
-
+import { OrderType } from "../steps/Types";
 
 type Props = {
   handleCheckboxChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleClickButton?: (type: string) => void;
-  data?: FormData;
+  data?: OrderType;
   cart?: ProductsProps[];
 };
 
 function StepOne({ handleCheckboxChange, handleClickButton, data }: Props) {
   return (
     <div className="flex h-full w-full  shadow-md flex-col  items-center justify-center">
-      <div className="flex  h-full w-full items-center  justify-evenly ">
-        <button
-          name="credit"
-          onClick={() => handleClickButton && handleClickButton("credit")}
-          className={`flex flex-col items-center justify-center  h-64 w-64 rounded-lg ${
-            data?.credit && data?.credit ? "bg-slate-600 text-white" : ""
-          } border-yellow-700 border text-xl hover:bg-slate-600
+      <div className="h-full w-full flex">
+        <div className="flex  h-full w-full items-center  justify-evenly ">
+          <button
+            name="credit"
+            onClick={() => handleClickButton && handleClickButton("credit")}
+            className={`flex flex-col items-center justify-center  h-64 w-64 rounded-lg ${
+              data?.credit && data?.credit ? "bg-slate-600 text-white" : ""
+            } border-yellow-700 border text-xl hover:bg-slate-600
                hover:text-white cursor-pointer`}
-        >
-          <FaCreditCard size={80} />
-          Credito
-        </button>
+          >
+            <FaCreditCard size={80} />
+            Credito
+          </button>
+        </div>
+        {/* <div className="flex  h-full w-full items-center  justify-evenly ">
+          <button
+            name="credit"
+            onClick={() => handleClickButton && handleClickButton("credit")}
+            className={`flex flex-col items-center justify-center  h-64 w-64 rounded-lg ${
+              data?.credit && data?.credit ? "bg-slate-600 text-white" : ""
+            } border-yellow-700 border text-xl hover:bg-slate-600
+               hover:text-white cursor-pointer`}
+          >
+            <FaCreditCard size={80} />
+           Web pago
+          </button>
+        </div> */}
       </div>
       <div className="flex  flex-col  h-[200px] w-full items-center p-4 gap-3">
         <div className="flex gap-2 items-center">

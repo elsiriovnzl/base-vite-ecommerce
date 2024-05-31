@@ -1,4 +1,9 @@
-export const URL_HOST_PROD = "https://panel-admin-base-production.up.railway.app";
+import axios from "axios";
+import { OrderType } from "../pages/Payment/components/steps/Types";
+import { toast } from "react-toastify";
+
+export const URL_HOST_PROD =
+  "https://panel-admin-base-production.up.railway.app";
 export const URL_HOST_DEV = "http://localhost:3000";
 
 export enum actionStorage {
@@ -11,7 +16,7 @@ export enum actionStorage {
 export const localStorage = (
   id: string,
   action: actionStorage,
-  Data?:  string
+  Data?: string
 ) => {
   if (actionStorage.GET === action) {
     const get = window.localStorage.getItem(id);
@@ -29,4 +34,22 @@ export const localStorage = (
     const res = window.localStorage.getItem(id);
     return res;
   }
+};
+
+export const useApiBank = async (
+  url: string,
+  data: OrderType,
+  token?: string
+) => {
+  const res = await axios
+    .post(url, data)
+    .then((res) => {
+      return res.data;
+    })
+    .catch((err) => {
+      toast.error(err.response.data);
+      return;
+    });
+
+  return res;
 };

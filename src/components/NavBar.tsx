@@ -15,8 +15,9 @@ import {
   currentPageActive,
   postCurrentPage,
 } from "../redux/Products/currentPage/CurrentPageSlice";
+import logo from "../assets/elsirio.png";
 
-import { userIsLogged } from "../redux/Products/Auth/AuthSlice";
+import { token} from "../redux/Products/Auth/AuthSlice";
 import Logout from "../pages/auth/Logout";
 
 type Props = {
@@ -27,7 +28,7 @@ type Props = {
 const NavBar = ({ openCart, openCartFn }: Props) => {
   const history = useLocation();
   const page = useAppSelector(currentPageActive);
-  const userInSession = useAppSelector(userIsLogged);
+  const istoken = useAppSelector(token);
   const dispatch = useAppDispatch();
   const [hrefLabel, setHrefLabel] = useState<
     { id: string; name: string; href: string }[]
@@ -45,11 +46,7 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
     <div className="flex items-center  justify-around  w-full h-[100px]  sticky border-b-2 ">
       <div className="w-[180px] h-[90px]  ">
         <Link to={"/"}>
-          <img
-            className="-w-full h-full"
-            src="https://i.pinimg.com/originals/b7/25/fb/b725fb67a8f353788f0c5882699b682a.jpg"
-            alt=""
-          />
+          <img className="-w-full h-full object-cover" src={logo} alt="" />
         </Link>
       </div>
       <div className=" flex gap-10 m-4  ">
@@ -68,7 +65,7 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
           ))}
         </ul>
         <div className="flex gap-6 items-center">
-          {userInSession ? (
+          {istoken ? (
             <Link to="/Perfil">
               <CgProfile cursor={"pointer"} size={30} />
             </Link>
@@ -86,7 +83,7 @@ const NavBar = ({ openCart, openCartFn }: Props) => {
               <span className="font-bold select-none">{Cart.length}</span>
             </div>
           </div>
-          <div className="">{userInSession && <Logout />}</div>
+          <div className="">{istoken && <Logout />}</div>
           <div className=" hidden md:flex">
             <RxHamburgerMenu size={30} cursor={"pointer"} />
           </div>

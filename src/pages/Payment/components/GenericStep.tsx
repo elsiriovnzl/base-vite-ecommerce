@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { OrderType, StepProps } from "../components/steps/Types";
-import { useAppSelector } from "../../../hooks";
-import { cart } from "../../../redux/Products/CartSlice";
+import { useAppDispatch, useAppSelector } from "../../../hooks";
+import { cart, deleteAll } from "../../../redux/Products/CartSlice";
+import { useNavigate } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -12,9 +12,13 @@ import Button from "@mui/material/Button";
 import Alert from "@mui/material/Alert";
 
 import { MdOutlineErrorOutline } from "react-icons/md";
+import { toast } from "react-toastify";
 
 import StepOne from "../components/steps/StepOne";
 import StepTwo from "../components/steps/StepTwo";
+import StepThree from "./steps/StepThree";
+import { URL_HOST_DEV, URL_HOST_PROD, useApiBank } from "../../../lib/utils";
+import axios from "axios";
 
 interface ErrorProps {
   message: string;
@@ -22,16 +26,12 @@ interface ErrorProps {
 }
 
 export default function HorizontalLinearStepper() {
-  const date = new Date();
-  const fullDate = `${date.getFullYear()}-${(date.getMonth() + 1)
-    .toString()
-    .padStart(2, "0")}-${date.getDay().toString().padStart(2, "0")}`;
-  const router = useNavigate();
+  const route = useNavigate();
+  const dispatch = useAppDispatch();
   const Cart = useAppSelector(cart);
   const [activeStep, setActiveStep] = useState(0);
   const [quotes, setQuotes] = useState(3);
   const [bankCode, setBankCode] = useState<string>("0102");
-  const [datePayment, setDatePayment] = useState<string>(fullDate);
 
   const total = Cart?.reduce(
     (acc, obj) => acc + obj.products_total * (obj?.quantity ?? 0),
@@ -51,8 +51,8 @@ export default function HorizontalLinearStepper() {
     telefonoPagador: "",
     telefonoDestino: "04241708810",
     referencia: "",
-    fechaPago: datePayment,
-    importe: `${convert / quotes}`,
+    fechaPago: "",
+    importe: `${(convert / quotes).toFixed(2)}`,
     bancoOrigen: bankCode ?? "",
     statusOrder: "pendiente",
     totalUSD: total,
@@ -60,7 +60,7 @@ export default function HorizontalLinearStepper() {
     convertVEF: 0,
     cart: Cart,
   });
-  console.log(data);
+
   const [isError, setIsError] = useState<ErrorProps | null>(null);
   const steps: StepProps[] = [
     {
@@ -88,8 +88,12 @@ export default function HorizontalLinearStepper() {
         />
       ),
     },
+    {
+      id: 3,
+      title: "Estado de pedido",
+      component: () => <StepThree />,
+    },
   ];
-
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -117,12 +121,36 @@ export default function HorizontalLinearStepper() {
       : setData({ ...data, polity: false });
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    if (activeStep === steps.length - 1) {
+      await axios
+        .post(
+          `${URL_HOST_PROD}/api/v1/Order`,
+          { data },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        )
+        .finally(() => {
+          route("/");
+          dispatch(deleteAll());
+        });
+    }
     const isValid = validateStep(activeStep);
     if (!isValid) return;
+    if (activeStep === 1) {
+      const res = await useApiBank(
+        `${URL_HOST_PROD}/api/v1/payment/mobile`,
+        data
+      );
 
-    if (activeStep === steps.length - 1) {
-      router("/");
+      if (res.code === 1010) {
+        toast.error(res.message);
+        return;
+      }
+      toast.success(res.message);
     }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -145,6 +173,7 @@ export default function HorizontalLinearStepper() {
           return false;
         }
         break;
+
       default:
         if (!data.polity || !data.credit) {
           setIsError({
@@ -185,7 +214,7 @@ export default function HorizontalLinearStepper() {
               >
                 <Button onClick={handleNext} variant="contained" size="large">
                   {activeStep === steps.length - 1
-                    ? "Finalizar Orden"
+                    ? "Volver al Inicio"
                     : "Continuar"}
                 </Button>
                 {isError && (
