@@ -4,6 +4,7 @@ import CartSliceReducer from "./redux/Products/CartSlice";
 import SiderBarMenuReducer from "./redux/Products/currentPage/CurrentPageSlice";
 import SingleProductSliceReducer from "./redux/Products/SingleProduct";
 import AuthSliceReducer from "./redux/Products/Auth/AuthSlice";
+import OrderSliceReducer from "./redux/Orders/OrderSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     page: SiderBarMenuReducer,
     singleProduct: SingleProductSliceReducer,
     auth: AuthSliceReducer,
+    order: OrderSliceReducer,
   },
 });
 
