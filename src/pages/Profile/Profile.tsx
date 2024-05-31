@@ -4,12 +4,13 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import { getAllOrders, getOrders } from "../../redux/Orders/OrderSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks";
+import { Typography } from "@mui/material";
 
 const Profile = () => {
-  const steps: string[] = ["Verificacion", "Bodega", "Despacho", "Entrega"];
+  const steps: string[] = ["VERIFICACION", "BODEGA", "DESPACHO", "ENTREGADO"];
   const orders = useAppSelector(getOrders);
-  console.log("ema", orders);
 
+  const STATUS_GLOBAL_FINISH_ID = 5;
 
   const dispatch = useAppDispatch();
 
@@ -17,9 +18,8 @@ const Profile = () => {
     dispatch(getAllOrders());
   }, []);
 
-
   return (
-    <>
+    <div className=" w-[100vw] h-[100vh]">
       <div className="text-center border-gray-400">
         <h1 className="text-black text-3xl">Mis Ordenes</h1>
       </div>
@@ -33,19 +33,19 @@ const Profile = () => {
             Configuración
           </button>
         </div>
-        <div className="flex flex-col items-start p-10 space-y-7 border-2 border-gray-400 w-full">
+        <div className="flex flex-col items-start p-10 space-y-7 border-2 border-gray-400 w-full overflow-hidden overflow-y-auto">
           {orders.map((order) => (
             <div
-              key={order.orderId}
+              key={order?.orders_id}
               className="flex w-full border items-center"
             >
               <div className="flex-1 p-4 w-full">
                 <div>
-                  <span className="mr-2">Order N°: {order.orderId}</span>
+                  <span className="mr-2">Order N°: {order?.orders_id}</span>
                 </div>
                 <div>
                   <span className="mr-2">
-                    Tipo de Pago: {order.payment_type}
+                    Tipo de Pago: {order?.payment_type_name}
                   </span>
                 </div>
                 <div>
@@ -53,7 +53,11 @@ const Profile = () => {
                 </div>
               </div>
               <Stepper
-                activeStep={steps.indexOf(order.status)}
+                activeStep={
+                  order.status_global_name === "ENTREGADO"
+                    ? STATUS_GLOBAL_FINISH_ID
+                    : steps.indexOf(order?.status_global_name)
+                }
                 alternativeLabel
                 className="flex-1"
               >
@@ -67,7 +71,7 @@ const Profile = () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

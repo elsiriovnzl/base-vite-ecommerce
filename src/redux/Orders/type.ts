@@ -1,5 +1,6 @@
 export type Order = {
-    payment_type: string;
+    orders_id: number;
+    payment_type_name: string;
     total : number
-    status: string
+    status_global_name: string
 }
