@@ -73,8 +73,8 @@ const SingleProduct = ({}: SingleProductType) => {
             <p>{product?.products_description}</p>
           </div>
           <div className="flex m-3 rounded-xl h-full p-2 gap-5 w-full items-center justify-start sm:hidden ">
-            <p className="text-2xl"> ${product.products_total}</p>
-            <div className="flex flex-col gap-1 ">
+           
+        {/*     <div className="flex flex-col gap-1 ">
               <p>Color</p>
               <div className="flex gap-4  w-10 flex-wrap ">
                 <div
@@ -89,7 +89,7 @@ const SingleProduct = ({}: SingleProductType) => {
                   className={`rounded-full h-5 w-5 cursor-pointer `}
                 ></div>
               </div>
-            </div>
+            </div> */}
 
             <div className="flex flex-col gap-1 items-center w-full sm:hidden">
               {/* MAKE: RANKING PRODUCT */}

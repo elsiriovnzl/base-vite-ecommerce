@@ -72,9 +72,7 @@ const ProductCards = ({
           </div>
         </div>
         <div className="flex w-full items-center justify-between ">
-          <div className="price">
-            <b>${price}</b>
-          </div>
+        
           <div className="flex gap-2">
            {/*  <button
               onClick={() =>
