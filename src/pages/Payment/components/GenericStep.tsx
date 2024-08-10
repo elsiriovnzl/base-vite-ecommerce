@@ -140,18 +140,7 @@ export default function HorizontalLinearStepper() {
     }
     const isValid = validateStep(activeStep);
     if (!isValid) return;
-    if (activeStep === 1) {
-      const res = await useApiBank(
-        `${URL_HOST_PROD}/api/v1/payment/mobile`,
-        data
-      );
-
-      if (res.code === 1010) {
-        toast.error(res.message);
-        return;
-      }
-      toast.success(res.message);
-    }
+ 
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setIsError(null);

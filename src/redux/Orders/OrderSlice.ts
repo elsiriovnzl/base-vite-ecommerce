@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState, AppThunk } from "../../store";
 import axios from "axios";
-import {  URL_HOST_DEV } from "../../lib/utils";
+import {  URL_HOST_DEV, URL_HOST_PROD } from "../../lib/utils";
 import { Order } from "./type";
 
 export interface OrderSliceState {
@@ -39,7 +39,7 @@ export const getAllOrders =
 async (dispatch, getState ) => {
         const token = window.localStorage.getItem('token')
     try {
-        const response = await axios.get(`${URL_HOST_DEV}/api/v1/Order`, {
+        const response = await axios.get(`${URL_HOST_PROD}/api/v1/Order`, {
             headers: { Authorization:`Bearer ${token}`}
         })
  
