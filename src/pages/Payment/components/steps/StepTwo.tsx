@@ -68,7 +68,7 @@ const StepTwo = ({
     0
   );
 
-  const convert = total && total * 36.17;
+  const convert = total && total * 58.54;
   const divideQuotes = convert && (convert / data?.quotes)?.toFixed(2);
 
 
