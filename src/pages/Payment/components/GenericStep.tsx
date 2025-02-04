@@ -39,7 +39,7 @@ export default function HorizontalLinearStepper() {
   );
 
   // NOTE: change api money convert from VEF
-  const convert = total && total * 36.17;
+  const convert = total && total * 58.54;
 
   const [data, setData] = useState<OrderType>({
     name: "",
